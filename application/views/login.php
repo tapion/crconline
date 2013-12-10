@@ -6,11 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Bootstrap -->
-        <link href="<?php echo base_url('css/bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url('css/bootstrap-theme.min.css'); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url('css/bootstrap/bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url('css/bootstrap/bootstrap-theme.min.css'); ?>" rel="stylesheet" media="screen">
 
         <!-- Bootstrap Admin Theme -->
-        <link href="<?php echo base_url('css/bootstrap-admin-theme.css'); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url('css/bootstrap/bootstrap-admin-theme.css'); ?>" rel="stylesheet" media="screen">
 
         <!-- Custom styles -->
         <style type="text/css">

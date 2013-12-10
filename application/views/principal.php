@@ -13,6 +13,10 @@
         <link href="<?php echo base_url('css/bootstrap-admin-theme.css'); ?>" rel="stylesheet" media="screen">
         <link href="<?php echo base_url('css/chosen.min.css'); ?>" rel="stylesheet" media="screen">
         
+        <!-- Datatables -->
+        <link href="<?php echo base_url('css/datatables/datatables.css'); ?>" rel="stylesheet" media="screen">
+        
+        <!-- Estilos de crconline -->
         <link href="<?php echo base_url('css/crconline.css'); ?>" rel="stylesheet" media="screen">
     </head>
     <body class="bootstrap-admin-with-small-navbar">
@@ -40,7 +44,8 @@
         <script src="<?php echo base_url('js/bootbox.min.js'); ?>"></script>
         <script src="<?php echo base_url('js/twitter-bootstrap-hover-dropdown.min.js'); ?>"></script>
         <script src="<?php echo base_url('js/chosen.jquery.min.js'); ?>"></script>
-        <script src="<?php echo base_url('css/datatables/js/jquery.dataTables.min.js'); ?>"></script>
+        <script src="<?php echo base_url('js/jquery.dataTables.min.js'); ?>"></script>
+        <script src="<?php echo base_url('js/datatables.js'); ?>"></script>
         <script src="<?php echo base_url('js/funciones.js'); ?>"></script>
     </body>
 </html>

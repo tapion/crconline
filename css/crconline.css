@@ -1,0 +1,26 @@
+.cartprocess{
+    background: #000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    z-index: 99999;
+}
+
+.cartprocess .inbox{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-left: -64px;
+    color: #FFF;
+    font-size: 30px;
+    text-align: center;
+}
+
+.cartprocess .inbox .a{
+    margin-bottom: 15px;
+}
+.cartprocess .inbox .b{
+
+}

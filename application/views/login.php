@@ -18,7 +18,19 @@
                 margin: 0 auto 20px;
             }
         </style>
+        
+        <script src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
+        <script src="<?php echo base_url('js/bootbox.min.js'); ?>"></script>
+        <script src="<?php echo base_url('js/parsley.js'); ?>"></script>
+        <script src="<?php echo base_url('js/parsley.extend.min.js'); ?>"></script>
 
+        <script type="text/javascript">
+            function mostrarMensaje(){
+                $("#divError").show();
+                setTimeout( "jQuery('#divError').slideToggle();",3000 );
+            }
+        </script>
+        
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
            <script type="text/javascript" src="js/html5shiv.js"></script>
@@ -28,17 +40,19 @@
     <body class="bootstrap-admin-without-padding">
         <div class="container">
             <div class="row">
+                
                 <div class="alert alert-info">
-                    <a class="close" data-dismiss="alert" href="#">&times;</a>
-                    Ingrese los datos y presione Ingresar...
+                    
+                    Bienvenido a CRCONLINE, Para continuar ingrese los datos y presione Entrar.
                 </div>
-                <form method="post" action="<?php echo base_url()."index.php/principal"?>" class="bootstrap-admin-login-form">
+                
+                <form method="post" class="bootstrap-admin-login-form" data-validate="parsley">
                     <h1>Login</h1>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="email" placeholder="E-mail">
+                        <input class="form-control" type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password" name="password" placeholder="Password">
+                        <input class="form-control" type="password" id="txtPassword" name="txtPassword" placeholder="Password" required>
                     </div>
                     <div class="form-group">
                         <label>
@@ -46,23 +60,20 @@
                             Recordarme
                         </label>
                     </div>
-                    <button class="btn btn-lg btn-primary" type="submit">Ingresar</button>
+                    <button class="btn btn-lg btn-primary" type="submit">Entrar</button>
+                    <div class="form-group">
+                        <br>
+                        <div id="divError" class="alert alert-danger" style="display: none">Error en el usuario o contrase&ntilde;a.</div>
+                    </div>
                 </form>
             </div>
         </div>
+ 
+        <!-- Muestra mensaje de error -->
+        <?php if(@$error_login): ?>
+        <script>mostrarMensaje();</script>
+        <?php endif; ?>
 
-        <script src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/bootbox.min.js'); ?>"></script>
-        <script type="text/javascript">
-            $(function() {
-                // Setting focus
-                $('input[name="email"]').focus();
-
-                // Setting width of the alert box
-                var formWidth = $('.bootstrap-admin-login-form').innerWidth();
-                var alertPadding = parseInt($('.alert').css('padding'));
-                $('.alert').width(formWidth - 2 * alertPadding);
-            });
-        </script>
+        
     </body>
 </html>

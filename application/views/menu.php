@@ -29,7 +29,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Perfil</a></li>
                                     <li role="presentation" class="divider"></li>
-                                    <li><a href="#">Salir</a></li>
+                                    <li><a href="<?php echo site_url('welcome/logout'); ?>">Salir</a></li>
                                 </ul>
                             </li>
                         </ul>

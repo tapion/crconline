@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- con esta linea validamos si esta logeado el usuario sino lo envia al login -->
+<?php if(!@$this->user) redirect ('welcome/login'); ?>
+
 <html>
     <head>
         <title>Bienvenido a CRCONLINE</title>

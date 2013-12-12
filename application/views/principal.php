@@ -46,6 +46,8 @@
         <script src="<?php echo base_url('js/chosen.jquery.min.js'); ?>"></script>
         <script src="<?php echo base_url('js/jquery.dataTables.min.js'); ?>"></script>
         <script src="<?php echo base_url('js/datatables.js'); ?>"></script>
+        <script src="<?php echo base_url('js/parsley.js'); ?>"></script>
+        <script src="<?php echo base_url('js/parsley.extend.min.js'); ?>"></script>
         <script src="<?php echo base_url('js/funciones.js'); ?>"></script>
     </body>
 </html>

@@ -9,7 +9,7 @@ class Welcome extends Private_Controller {
             redirect ('welcome/login'); 
         }
         
-        $datos = array( 'listaMenu' => array('Administracion' => array( 'Usuarios' => 'usuario/index', 'Personas' => 'url', 'Empresas' => 'url' ),
+        $datos = array( 'listaMenu' => array('Administracion' => array( 'Usuarios' => 'usuario/index', 'Servicio' => 'administracion/adminServicio/index' , 'Personas' => 'url', 'Empresas' => 'url' ),
                                              'Examenes' => array( 'Optometria' => 'url', 'Audiometria' => 'url', 'Medico' => 'url', 'dividir' => 'dividir' ,'Reportes' => array('Pagos' => 'url', 'Usuarios' => 'url'))
                                             )
                       );    
@@ -21,7 +21,7 @@ class Welcome extends Private_Controller {
 
         $data = array();
 
-        // Añadimos las reglas necesarias.
+        // Aï¿½adimos las reglas necesarias.
         $this->form_validation->set_rules('txtUsuario', 'Usuario', 'required');
         $this->form_validation->set_rules('txtPassword', 'Password', 'required');
 

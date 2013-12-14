@@ -2,10 +2,13 @@
  * Funcion para enviar una peticion ajax
  * @param {string} urlAction Url de la peticion
  */
-function enviarPeticionAjax( urlAction ){    
+function enviarPeticionAjax( urlAction ){  
     if( enviarPeticionAjax.arguments.length > 1 ){
         contenedor = enviarPeticionAjax.arguments[1];
         if(typeof enviarPeticionAjax.arguments[2] != "undefined"){
+            if(!$("#"+enviarPeticionAjax.arguments[2]).parsley('validate')){
+                return;
+            }
             dtsFormulario = $('#'+enviarPeticionAjax.arguments[2]).serialize();          
         }
     }else{

@@ -9,7 +9,7 @@ class Principal extends CI_Controller {
     
     public function index(){
 
-        $datos = array( 'listaMenu' => array('Administracion' => array( 'Usuarios' => 'usuario/index', 'Personas' => 'url', 'Empresas' => 'url' ),
+        $datos = array( 'listaMenu' => array('Administracion' => array( 'Usuarios' => 'usuario/index',  'Servicio' => 'administracion/adminServicio/index' ,'Personas' => 'url', 'Empresas' => 'url' ),
                                              'Examenes' => array( 'Optometria' => 'url', 'Audiometria' => 'url', 'Medico' => 'url', 'dividir' => 'dividir' ,'Reportes' => array('Pagos' => 'url', 'Usuarios' => 'url'))
                                             )
                       );    

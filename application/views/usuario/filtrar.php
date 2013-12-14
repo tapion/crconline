@@ -1,6 +1,6 @@
 <h1>Filtrar usuarios</h1>
 
-<div class="row">
+<div class="table-responsive">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="text-muted bootstrap-admin-box-title">Listado de usuarios</div>

@@ -1,5 +1,5 @@
 <?php $urlBase = base_url('index.php'); ?>
-<?= form_open('', array('class' => 'form-search', 'id' => 'formServicio', 'data-validate' => "parsley"));  ?>
+<?= form_open('', array('class' => 'form-search', 'id' => 'formServicio', 'data-validate' => "parsley")); ?>
 <div class="container well well-sm">        
     <table style="width: 100%" border="0" cellpadding="5">
         <tr>
@@ -13,7 +13,7 @@
                     $opciones[$dtsTipServi->tipo_servicio_id] = $dtsTipServi->tipo_servicio_nombre;
                 }
 
-                $js = 'class="chzn-select" id="tipServicio" onChange="" style="width: 40%"';
+                $js = 'class="chzn-select" id="tipServicio" onChange="" style="width: 40%" required';
                 echo form_dropdown('shirts', $opciones, 'large', $js);
                 ?>
             </td>
@@ -26,13 +26,14 @@
                 <?php
                 # aca falta consultar en la BD pero esta lista depende de la empresa para filtrar
                 $options = array(
+                    '' => 'Seleccione..',
                     1 => 'can',
                     2 => 'bogota',
                     3 => 'cucuta',
                     4 => 'mas',
                 );
 
-                $js = 'class="chzn-select" id="sede" style="width: 25%"';
+                $js = 'class="chzn-select" id="sede" style="width: 25%" required';
                 echo form_dropdown('shirts', $options, 'large', $js);
                 ?>
             </td>
@@ -51,12 +52,12 @@
             </td>
             <td style="width: 80%">
                 <?php
-                $edades = array();
+                $edades = array('' => 'Sele...');
                 for ($i = 13; $i < 100; $i++) {
                     $edades[$i] = $i;
                 }
 
-                $js = 'class="chzn-select" id="edadMin" style="width: 8%"';
+                $js = 'class="chzn-select" id="edadMin" style="width: 15%" required';
                 echo form_dropdown('shirts', $edades, 'large', $js);
                 ?>
             </td>
@@ -67,7 +68,7 @@
             </td>
             <td style="width: 80%">
                 <?php
-                $js = 'class="chzn-select" id="edadMax" style="width: 8%"';
+                $js = 'class="chzn-select" id="edadMax" style="width: 15%" required';
                 echo form_dropdown('shirts', $edades, 'large', $js);
                 ?>
             </td>
@@ -103,7 +104,7 @@
     </table> 
     <br>
     <fieldset class="scheduler-border">
-        <legend class="scheduler-border">EXAMENES</legend>
+        <legend class="scheduler-border">EXAMENES</legend>        
         <div class="bs-example bs-example-tabs">
             <ul id="myTab" class="nav nav-tabs">
                 <?php
@@ -171,9 +172,13 @@
                 }
                 ?>
             </div>
-        </div>
-    </fieldset>
-    <br>    
+        </div>        
+    </fieldset>    
+    <div>
+        <button id="btnselect" type="button" class="btn btn-sm btn-default" onclick="marcaciones(true);" >
+            <span class="glyphicon glyphicon-chevron-down" id="marcar">&nbsp;Marcar Todos</span> 
+        </button>
+    </div>
 </div>
 <div class="form-actions">   
     <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/create' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>

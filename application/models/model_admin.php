@@ -4,7 +4,6 @@
  *
  * @author Jerson Gomez
  */
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 

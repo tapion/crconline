@@ -1,5 +1,5 @@
 <?php $urlBase = base_url('index.php'); ?>
-<?= form_open('', array('class' => 'form-search', 'id' => 'formServicio', 'data-validate' => "parsley")); ?>
+<?= form_open('', array('class' => 'form-search', 'id' => 'formServicio', 'data-validate' => "parsley"));  ?>
 <div class="container well well-sm">        
     <table style="width: 100%" border="0" cellpadding="5">
         <tr>
@@ -9,10 +9,10 @@
             <td style="width: 80%">
                 <?php
                 $opciones = array('' => 'Seleccione..');
-                foreach ($tipoServicios as $dtsTipServi){
+                foreach ($tipoServicios as $dtsTipServi) {
                     $opciones[$dtsTipServi->tipo_servicio_id] = $dtsTipServi->tipo_servicio_nombre;
                 }
-                
+
                 $js = 'class="chzn-select" id="tipServicio" onChange="" style="width: 40%"';
                 echo form_dropdown('shirts', $opciones, 'large', $js);
                 ?>
@@ -82,7 +82,7 @@
         </tr>
         <tr>
             <td style="width: 20%">
-                Valor certificado
+                Valor Certificado
             </td>
             <td style="width: 80%">
                 <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-trigger="change" required value="<?php echo set_value('txtVlrCerti'); ?>">
@@ -102,52 +102,78 @@
         </tr>        
     </table> 
     <br>
-    <?php
-    foreach ($tipoExamen as $dtsTipoExamen) {
-        ?>
-        <fieldset class="scheduler-border">
-            <legend class="scheduler-border">EXAMEN <?= $dtsTipoExamen->tipo_examen_nombre; ?></legend>
-            <div class="control-group">
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">EXAMENES</legend>
+        <div class="bs-example bs-example-tabs">
+            <ul id="myTab" class="nav nav-tabs">
                 <?php
-                $i = 1;
-                foreach ($subExamen as $dtsSubExamen) {
-                    foreach ($dtsSubExamen as $finSubExamen) {
-                        if ($finSubExamen->subexamen_tipo_examen_id == $dtsTipoExamen->tipo_examen_id) {
-                            if (($i % 2) != 0) {
-                                ?>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                            <label>
-                                                <input type="checkbox">                                            
-                                            </label>
-                                            <?= $finSubExamen->subexamen_nombre; ?>
-                                        </div>
-                                    </div>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                            <label>
-                                                <input type="checkbox">                                            
-                                            </label>
-                                            <?= $finSubExamen->subexamen_nombre; ?>
-                                        </div>
-                                    </div>
-                                </div>
+                foreach ($tipoExamen as $key => $dtsTipoExamen) {
+                    if ($key == 0)
+                        $comp = 'class="active"';
+                    else
+                        $comp = NULL;
+                    ?>
+                    <li <?= $comp; ?> ><a href="#<?= str_replace(' ', '', $dtsTipoExamen->tipo_examen_nombre); ?>" data-toggle="tab"><?= $dtsTipoExamen->tipo_examen_nombre; ?></a></li>
+                    <?php
+                }
+                ?>
+            </ul>   
+            <div id="myTabContent" class="tab-content">
+                <?php
+                foreach ($tipoExamen as $key => $dtsTipoExamen) {
+                    if ($key == 0)
+                        $comp = 'in active';
+                    else
+                        $comp = NULL;
+                    ?>
+                    <div class="tab-pane fade <?= $comp; ?>" style="padding-top: 10px" id="<?= str_replace(' ', '', $dtsTipoExamen->tipo_examen_nombre); ?>">
+                        <?php
+                        $i = 1;
+                        foreach ($subExamen as $dtsSubExamen) {
+                            ?>
+                            <div class="row">
                                 <?php
-                            }
-                            $i++;
+                                foreach ($dtsSubExamen as $finSubExamen) {
+                                    if ($finSubExamen->subexamen_tipo_examen_id == $dtsTipoExamen->tipo_examen_id) {
+                                        if (($i % 2) != 0) {
+                                            ?>                                    
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <label>
+                                                        <input type="checkbox" id="<?= $finSubExamen->subexamen_id; ?>" name="<?= $finSubExamen->subexamen_id; ?>">
+                                                    </label>
+                                                    <?= ucwords(strtolower($finSubExamen->subexamen_nombre)); ?>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <label>
+                                                        <input type="checkbox" id="<?= $finSubExamen->subexamen_id; ?>" name="<?= $finSubExamen->subexamen_id; ?>">
+                                                    </label>
+                                                    <?= ucwords(strtolower($finSubExamen->subexamen_nombre)); ?>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                        $i++;
+                                    }
+                                }
+                                ?>
+                            </div>
+                            <?php
                         }
-                    }
+                        ?>
+                    </div>
+                    <?php
                 }
                 ?>
             </div>
-        </fieldset>
-        <?php
-    }
-    ?>
+        </div>
+    </fieldset>
+    <br>    
 </div>
 <div class="form-actions">   
     <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/create' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>

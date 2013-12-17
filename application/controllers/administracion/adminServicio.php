@@ -31,6 +31,8 @@ class AdminServicio extends CI_Controller {
     
     public function create(){
         echo 'aca';
+        $registro = $this->input->post();
+        print_r($registro);
     }
     
 }

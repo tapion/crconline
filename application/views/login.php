@@ -49,10 +49,10 @@
                 <form method="post" class="bootstrap-admin-login-form" data-validate="parsley">
                     <h1>Login</h1>
                     <div class="form-group">
-                        <input class="form-control" type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" parsley-trigger="change" required value="<?php echo set_value('txtUsuario');?>">
+                        <input class="form-control" type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" parsley-trigger="change" data-required="true" value="<?php echo set_value('txtUsuario');?>">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password" id="txtPassword" name="txtPassword" placeholder="Password" parsley-trigger="change" required>
+                        <input class="form-control" type="password" id="txtPassword" name="txtPassword" placeholder="Password" parsley-trigger="change" data-required="true">
                     </div>
                     <div class="form-group">
                         <label>

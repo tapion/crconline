@@ -13,7 +13,7 @@
                     $opciones[$dtsTipServi->tipo_servicio_id] = $dtsTipServi->tipo_servicio_nombre;
                 }
 
-                $js = 'class="chzn-select" id="tipServicio" onChange="" style="width: 40%" required';
+                $js = 'class="chzn-select" id="tipServicio" onChange="" style="width: 40%" data-required="true"';
                 echo form_dropdown('tipoServicio', $opciones, 'large', $js);
                 ?>
             </td>
@@ -30,7 +30,7 @@
                     $opcSedes[$dtsSedes->sede_id] = $dtsSedes->sede_nombre;
                 }
                 
-                $js = 'class="chzn-select" id="sede" style="width: 25%" required';
+                $js = 'class="chzn-select" id="sede" style="width: 25%" data-required="true"';
                 echo form_dropdown('sede', $opcSedes, 'large', $js);
                 ?>
             </td>
@@ -40,7 +40,7 @@
                 Servicio
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="text" id="txtServicio" name="txtServicio" placeholder="Servicio" parsley-trigger="change" required value="<?php echo set_value('txtServicio'); ?>">
+                <input style="width: 25%" class="form-control" type="text" id="txtServicio" name="txtServicio" placeholder="Servicio" parsley-trigger="change" data-required="true" value="<?php echo set_value('txtServicio'); ?>">
             </td>
         </tr>
         <tr>
@@ -54,7 +54,7 @@
                     $edades[$i] = $i;
                 }
 
-                $js = 'class="chzn-select" id="edadMin" style="width: 15%" required';
+                $js = 'class="chzn-select" id="edadMin" style="width: 15%" data-required="true"';
                 echo form_dropdown('edadMin', $edades, 'large', $js);
                 ?>
             </td>
@@ -65,7 +65,7 @@
             </td>
             <td style="width: 80%">
                 <?php
-                $js = 'class="chzn-select" id="edadMax" style="width: 15%" required';
+                $js = 'class="chzn-select" id="edadMax" style="width: 15%" data-required="true"';
                 echo form_dropdown('edadMax', $edades, 'large', $js);
                 ?>
             </td>
@@ -75,7 +75,7 @@
                 Valor Servicio
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="number" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-trigger="change" required value="<?php echo set_value('txtVlrServicio'); ?>">
+                <input style="width: 25%" class="form-control" type="number" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-trigger="change" data-required="true" value="<?php echo set_value('txtVlrServicio'); ?>">
             </td>
         </tr>
         <tr>
@@ -83,7 +83,7 @@
                 Valor Certificado
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-trigger="change" required value="<?php echo set_value('txtVlrCerti'); ?>">
+                <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-trigger="change" data-required="true" value="<?php echo set_value('txtVlrCerti'); ?>">
             </td>
         </tr>
         <tr>
@@ -93,7 +93,7 @@
             <td style="width: 80%">
                 <?php
                 $estados = array('TRUE' => 'Activo', 'FALSE' => 'Inactivo');
-                $js = 'class="chzn-select" id="estado" style="width: 15%"';
+                $js = 'class="chzn-select" id="estado" style="width: 15%" data-required="true"';
                 echo form_dropdown('estado', $estados, 'large', $js);
                 ?>
             </td>

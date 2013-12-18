@@ -8,8 +8,8 @@
         <div id="priservicio" class="col-md-2" style="padding-left: -15px">
             <ul class="nav nav-pills nav-stacked">
                 <li id="newServicio">
-                    <a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/newServicio' ?>', 'divTabs');">Agregar Servicio</a></li>
-                <li id="consultar" class="active"><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/consultar' ?>', 'divTabs');">Consultar y Modificar Servicio</a></li>                          
+                    <a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/newServicio' ?>', 'divTabs');">Agregar </a></li>
+                <li id="consultar" class="active"><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/consultar' ?>', 'divTabs');">Consultar y/o Modificar</a></li>                          
             </ul>
         </div>
         <!-- div para mostrar los contenidos de los tabs --> 

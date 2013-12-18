@@ -15,10 +15,12 @@ class AdminServicio extends CI_Controller {
     public function index(){                
         $this->load->view('adminServicio/index');
     }
-    
+        
     public function newServicio(){
         # Tipos De servicio
         $data['tipoServicios'] = $this->Model_Admin->allTipoServicios();
+        # Consulta sedes por empresa
+        $data['sedes'] = $this->Model_Admin->filterSedeEmpresa(1);
         # Tipos  Examen con su respectivo subExamen asociado
         $matrizFinal = array();
         $data['tipoExamen'] = $this->Model_Admin->allTipoExamen();
@@ -29,10 +31,22 @@ class AdminServicio extends CI_Controller {
         $this->load->view('adminServicio/new', $data);
     }
     
-    public function create(){
-        echo 'aca';
+    public function createServicio(){
         $registro = $this->input->post();
-        print_r($registro);
+        $idServicio = $this->Model_Admin->insertServicio($registro);
+        $maxSubexamen = $this->Model_Admin->maxSubExamen();
+        foreach ($idServicio as $dtsServicio){
+            $idSer = $dtsServicio->idservicio;
+        }
+        foreach ($maxSubexamen as $dtsMaxSubexamen){
+            $maxSubExa = $dtsMaxSubexamen->idsubexamen;
+        }        
+        $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro,$idSer,$maxSubExa);
+        $this->load->view('adminServicio/consultar', $datos);
+    }
+    
+    public function consultar(){
+        $this->load->view('adminServicio/consultar');
     }
     
 }

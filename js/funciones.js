@@ -2,48 +2,48 @@
  * Funcion para enviar una peticion ajax
  * @param {string} urlAction Url de la peticion
  */
-function enviarPeticionAjax( urlAction ){  
-    if( enviarPeticionAjax.arguments.length > 1 ){
+function enviarPeticionAjax(urlAction) {
+    if (enviarPeticionAjax.arguments.length > 1) {
         contenedor = enviarPeticionAjax.arguments[1];
-        if(typeof enviarPeticionAjax.arguments[2] != "undefined"){
-            if(!$("#"+enviarPeticionAjax.arguments[2]).parsley('validate')){
+        if (typeof enviarPeticionAjax.arguments[2] != "undefined") {
+            if (!$("#" + enviarPeticionAjax.arguments[2]).parsley('validate')) {
                 return;
             }
-            dtsFormulario = $('#'+enviarPeticionAjax.arguments[2]).serialize();          
+            dtsFormulario = $('#' + enviarPeticionAjax.arguments[2]).serialize();
         }
-    }else{
+    } else {
         contenedor = 'divContenido';
         dtsFormulario = "";
     }
-    
+
     divProcesando(true);
-    
+
     $.ajax({
-            url: urlAction,
-            type:'POST',
-            data: dtsFormulario,
-            dataType: 'html',
-            success: function(respuesta){
-                $('#'+contenedor).html(respuesta);
-                divProcesando(false);
-            },
-            error:function(){
-                mensaje('Se ha presentado un error al llamar Ajax!...');
-                divProcesando(false);
-            }        
-            });
-            
-    
+        url: urlAction,
+        type: 'POST',
+        data: dtsFormulario,
+        dataType: 'html',
+        success: function(respuesta) {
+            $('#' + contenedor).html(respuesta);
+            divProcesando(false);
+        },
+        error: function() {
+            mensaje('Se ha presentado un error al llamar Ajax!...');
+            divProcesando(false);
+        }
+    });
+
+
 }
 
 /*
  * Muestra div procesando en toda la pantalla
  * @param {boolean} estado True/false si muestrar o ocultar div
  */
-function divProcesando(estado){
-    if( estado ){
+function divProcesando(estado) {
+    if (estado) {
         $(".cartprocess").fadeTo(30, 0.40);
-    }else{
+    } else {
         $(".cartprocess").hide();
     }
 }
@@ -51,20 +51,20 @@ function divProcesando(estado){
 /*
  * Dar formato a una tabla, agrega paginacion y filtro en los resultados
  */
-function formatoTablaResultados(){
-    
+function formatoTablaResultados() {
+
     $('.datatable').dataTable({
-            "sPaginationType": "bs_normal"
-    });	
-    $('.datatable').each(function(){
-            var datatable = $(this);
-            // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-            var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-            search_input.attr('placeholder', 'Buscar en resultados');
-            search_input.addClass('form-control input-sm');
-            // LENGTH - Inline-Form control
-            var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
-            length_sel.addClass('form-control input-sm');
+        "sPaginationType": "bs_normal"
+    });
+    $('.datatable').each(function() {
+        var datatable = $(this);
+        // SEARCH - Add the placeholder for Search and Turn this into in-line form control
+        var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+        search_input.attr('placeholder', 'Buscar en resultados');
+        search_input.addClass('form-control input-sm');
+        // LENGTH - Inline-Form control
+        var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+        length_sel.addClass('form-control input-sm');
     });
 
 }
@@ -73,32 +73,32 @@ function formatoTablaResultados(){
  * Muestra un mensaje con bootox
  * @param {string} txtMensaje Texto a mostrar
  */
-function mensaje( txtMensaje ){
-    bootbox.alert( txtMensaje, function() {
+function mensaje(txtMensaje) {
+    bootbox.alert(txtMensaje, function() {
     });
 }
 
-function confirmar( txtMensaje, accion ){
-    bootbox.confirm( txtMensaje , function(result) {
+function confirmar(txtMensaje, accion) {
+    bootbox.confirm(txtMensaje, function(result) {
         if (result) {
             mensaje('si lo es');
             return true;
         } else {
             mensaje('noo .. es una loca.');
         }
-    }); 
+    });
     return false;
 }
 
-function marcaciones(marcar){
-    if(marcar == true){
+function marcaciones(marcar) {
+    if (marcar == true) {
         $('input[type=checkbox]').prop('checked', true);
         $('#marcar').html('&nbsp;Desmarcar Todos');
-        $('#btnselect').attr('onclick','marcaciones();');
-    }else{
+        $('#btnselect').attr('onclick', 'marcaciones();');
+    } else {
         $('input[type=checkbox]').prop('checked', false);
         $('#marcar').html('&nbsp;Marcar Todos');
-        $('#btnselect').attr('onclick','marcaciones(true);');
+        $('#btnselect').attr('onclick', 'marcaciones(true);');
     }
 }
 

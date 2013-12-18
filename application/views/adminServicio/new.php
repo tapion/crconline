@@ -14,7 +14,7 @@
                 }
 
                 $js = 'class="chzn-select" id="tipServicio" onChange="" style="width: 40%" required';
-                echo form_dropdown('shirts', $opciones, 'large', $js);
+                echo form_dropdown('tipoServicio', $opciones, 'large', $js);
                 ?>
             </td>
         </tr>
@@ -25,16 +25,13 @@
             <td style="width: 80%">
                 <?php
                 # aca falta consultar en la BD pero esta lista depende de la empresa para filtrar
-                $options = array(
-                    '' => 'Seleccione..',
-                    1 => 'can',
-                    2 => 'bogota',
-                    3 => 'cucuta',
-                    4 => 'mas',
-                );
-
+                $opcSedes = array('' => 'Seleccione..');                
+                foreach ($sedes as $dtsSedes) {
+                    $opcSedes[$dtsSedes->sede_id] = $dtsSedes->sede_nombre;
+                }
+                
                 $js = 'class="chzn-select" id="sede" style="width: 25%" required';
-                echo form_dropdown('shirts', $options, 'large', $js);
+                echo form_dropdown('sede', $opcSedes, 'large', $js);
                 ?>
             </td>
         </tr>
@@ -58,7 +55,7 @@
                 }
 
                 $js = 'class="chzn-select" id="edadMin" style="width: 15%" required';
-                echo form_dropdown('shirts', $edades, 'large', $js);
+                echo form_dropdown('edadMin', $edades, 'large', $js);
                 ?>
             </td>
         </tr>
@@ -69,7 +66,7 @@
             <td style="width: 80%">
                 <?php
                 $js = 'class="chzn-select" id="edadMax" style="width: 15%" required';
-                echo form_dropdown('shirts', $edades, 'large', $js);
+                echo form_dropdown('edadMax', $edades, 'large', $js);
                 ?>
             </td>
         </tr>
@@ -97,7 +94,7 @@
                 <?php
                 $estados = array('TRUE' => 'Activo', 'FALSE' => 'Inactivo');
                 $js = 'class="chzn-select" id="estado" style="width: 15%"';
-                echo form_dropdown('shirts', $estados, 'large', $js);
+                echo form_dropdown('estado', $estados, 'large', $js);
                 ?>
             </td>
         </tr>        
@@ -181,8 +178,7 @@
     </div>
 </div>
 <div class="form-actions">   
-    <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/create' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
+    <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/createServicio' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
 </div>
-<br>
 <script>$('.chzn-select').chosen();</script>
 <?= form_close(); ?>

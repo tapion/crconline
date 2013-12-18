@@ -90,3 +90,15 @@ function confirmar( txtMensaje, accion ){
     return false;
 }
 
+function marcaciones(marcar){
+    if(marcar == true){
+        $('input[type=checkbox]').prop('checked', true);
+        $('#marcar').html('&nbsp;Desmarcar Todos');
+        $('#btnselect').attr('onclick','marcaciones();');
+    }else{
+        $('input[type=checkbox]').prop('checked', false);
+        $('#marcar').html('&nbsp;Marcar Todos');
+        $('#btnselect').attr('onclick','marcaciones(true);');
+    }
+}
+

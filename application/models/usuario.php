@@ -21,7 +21,7 @@ class Usuario extends CI_Model {
          * @param string $password Contraseña
          */
 	public function autenticar( $login='', $password='' ) {
-            if( $login == 'admin' && $password == 'admin'){
+            if( $login != '' && $password != ''){
                 
                 $this->db->select('*');
                 $this->db->from('usuarios');

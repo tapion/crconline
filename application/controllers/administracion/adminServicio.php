@@ -28,7 +28,7 @@ class AdminServicio extends CI_Controller {
             $matrizFinal[$tipoExamen->tipo_examen_id] = $this->Model_Admin->filterTipoSubexamen($tipoExamen->tipo_examen_id);
         }
         $data['subExamen'] = $matrizFinal;
-        $this->load->view('adminServicio/new', $data);
+        $this->load->view('adminServicio/nuevo', $data);
     }
     
     public function createServicio(){
@@ -46,6 +46,7 @@ class AdminServicio extends CI_Controller {
     }
     
     public function consultar(){
+//        $datos['filtros'] = $this->Model_Admin->allServicios();
         $this->load->view('adminServicio/consultar');
     }
     

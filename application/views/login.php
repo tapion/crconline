@@ -4,10 +4,12 @@
         <title>Bienvenido a CRCONLINE</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <!-- Estilo crconline -->
+        <link href="<?php echo base_url('css/crconline.css'); ?>" rel="stylesheet" media="screen">
+        
         <!-- Bootstrap -->
         <link href="<?php echo base_url('css/bootstrap/bootstrap.min.css'); ?>" rel="stylesheet" media="screen">
-        <link href="<?php echo base_url('css/bootstrap/bootstrap-theme.min.css'); ?>" rel="stylesheet" media="screen">
+        <link href="<?php echo base_url('css/bootstrap/bootstrap-theme.min.css'); ?>" rel="stylesheet" media="screen">       
 
         <!-- Bootstrap Admin Theme -->
         <link href="<?php echo base_url('css/bootstrap/bootstrap-admin-theme.css'); ?>" rel="stylesheet" media="screen">
@@ -16,21 +18,21 @@
         <style type="text/css">
             .alert{
                 margin: 0 auto 20px;
-            }
+            }            
         </style>
-        
+
         <script src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
         <script src="<?php echo base_url('js/bootbox.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/parsley.js'); ?>"></script>
-        <script src="<?php echo base_url('js/parsley.extend.min.js'); ?>"></script>
+        <script src="<?php echo base_url('js/parsley/parsley.js'); ?>"></script>
+        <script src="<?php echo base_url('js/parsley/parsley.extend.js'); ?>"></script>
 
         <script type="text/javascript">
-            function mostrarMensaje(){
+            function mostrarMensaje() {
                 $("#divError").show();
-                setTimeout( "jQuery('#divError').slideToggle();",3000 );
+                setTimeout("jQuery('#divError').slideToggle();", 3000);
             }
         </script>
-        
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
            <script type="text/javascript" src="js/html5shiv.js"></script>
@@ -40,19 +42,19 @@
     <body class="bootstrap-admin-without-padding">
         <div class="container">
             <div class="row">
-                
+
                 <div class="alert alert-info">
-                    
+
                     Bienvenido a CRCONLINE, Para continuar ingrese los datos y presione Entrar.
                 </div>
-                
-                <form method="post" class="bootstrap-admin-login-form" data-validate="parsley">
+
+                <form method="post" class="bootstrap-admin-login-form" id="frmLogin" onsubmit="return $('#frmLogin').parsley('validate');"> 
                     <h1>Login</h1>
                     <div class="form-group">
-                        <input class="form-control" type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" parsley-trigger="change" data-required="true" value="<?php echo set_value('txtUsuario');?>">
+                        <input class="form-control" type="text" id="txtUsuario" name="txtUsuario" placeholder="Usuario" parsley-required="usuario" data-required="true" value="<?php echo set_value('txtUsuario'); ?>">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password" id="txtPassword" name="txtPassword" placeholder="Password" parsley-trigger="change" data-required="true">
+                        <input class="form-control" type="password" id="txtPassword" name="txtPassword" placeholder="Contrase&ntilde;a" parsley-required="contrase&ntilde;a" data-required="true">
                     </div>
                     <div class="form-group">
                         <label>
@@ -68,12 +70,11 @@
                 </form>
             </div>
         </div>
- 
-        <!-- Muestra mensaje de error -->
-        <?php if(@$error_login): ?>
-        <script>mostrarMensaje();</script>
-        <?php endif; ?>
 
-        
+        <!-- Muestra mensaje de error -->
+        <?php if (@$error_login): ?>
+            <script>mostrarMensaje();</script>
+        <?php endif; ?>
+        <script src="<?php echo base_url('js/parsley/i18n/messages.es.js') . '?' . C_VERSION ?>"></script>
     </body>
 </html>

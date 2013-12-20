@@ -145,4 +145,5 @@ if (isset($exito) && !empty($exito)) {
         </div>
     </div>
 </div>
+    
 <script type="text/javascript">formatoTablaResultados();</script>

@@ -1541,9 +1541,9 @@
     , validateIfUnchanged: false                                          // false: validate once by field value change
     , errors: {
         classHandler: function ( elem, isRadioOrCheckbox ) {return $(elem).parent();}             // specify where parsley error-success classes are set
-      , container: function ( elem, isRadioOrCheckbox ) { return $('#divError'); }                // specify an elem where errors will be **apened**
-      , errorsWrapper: '<ul></ul>'                                        // do not set an id for this elem, it would have an auto-generated id
-      , errorElem: '<li></li>'                                            // each field constraint fail in an li
+      , container: function ( elem, isRadioOrCheckbox ) { }  //return $('#divError');              // specify an elem where errors will be **apened**
+      , errorsWrapper: '<div></div>'                                        // do not set an id for this elem, it would have an auto-generated id
+      , errorElem: '<div></div>'                                            // each field constraint fail in an li
       }
     , listeners: {
         onFieldValidate: function ( elem, ParsleyForm ) { return false; } // Executed on validation. Return true to ignore field validation

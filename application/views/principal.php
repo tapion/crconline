@@ -42,15 +42,16 @@
         </div>
         
         
-        <script src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/bootstrap.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/bootbox.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/twitter-bootstrap-hover-dropdown.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/chosen.jquery.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/jquery.dataTables.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/datatables.js'); ?>"></script>
-        <script src="<?php echo base_url('js/parsley.js'); ?>"></script>
-        <script src="<?php echo base_url('js/parsley.extend.min.js'); ?>"></script>
-        <script src="<?php echo base_url('js/funciones.js'); ?>"></script>
+        <script src="<?php echo base_url('js/jquery.min.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/bootstrap.min.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/bootbox.min.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/twitter-bootstrap-hover-dropdown.min.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/chosen.jquery.min.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/jquery.dataTables.min.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/datatables.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/parsley/parsley.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/parsley/parsley.extend.js'). '?' . C_VERSION; ?>"></script>
+        <script src="<?php echo base_url('js/parsley/i18n/messages.es.js') . '?' . C_VERSION ?>"></script>
+        <script src="<?php echo base_url('js/funciones.js'). '?' . C_VERSION; ?>"></script>
     </body>
 </html>

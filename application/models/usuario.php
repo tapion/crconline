@@ -21,8 +21,7 @@ class Usuario extends CI_Model {
          * @param string $password Contraseña
          */
 	public function autenticar( $login='', $password='' ) {
-            if( $login == 'admin' && $password == 'admin'){
-                
+            if( !empty($login) && !empty($password)){                
                 $this->db->select('*');
                 $this->db->from('usuarios');
                 $this->db->where('usuario_login', $login);
@@ -30,7 +29,6 @@ class Usuario extends CI_Model {
                 $this->db->where('usuario_estado', 'TRUE');
                 $query = $this->db->get();
                 return $query->result();
-
             }else{
                 return false;
             }

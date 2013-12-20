@@ -15,19 +15,26 @@ class Usuario extends CI_Model {
 	}
 
 	
+        /*
+         * Consulta si existe un usuario
+         * @param string $login Login del usuario
+         * @param string $password Contraseña
+         */
 	public function autenticar( $login='', $password='' ) {
             if( $login == 'admin' && $password == 'admin'){
-                return true;
+                
+                $this->db->select('*');
+                $this->db->from('usuarios');
+                $this->db->where('usuario_login', $login);
+                $this->db->where('usuario_password', md5($password) );
+                $this->db->where('usuario_estado', 'TRUE');
+                $query = $this->db->get();
+                return $query->result();
+
             }else{
                 return false;
             }
-            
-            /*return $this->db->get_where(
-			$this->table, array(
-				'username' => $usuarioDto->getLogin(),
-				'password' => $usuarioDto->getPassword()
-			)
-		)->row();*/
+
 	}
 
 }

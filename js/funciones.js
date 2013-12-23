@@ -16,7 +16,7 @@ function enviarPeticionAjax(urlAction) {
         dtsFormulario = "";
     }
 
-    divProcesando(true);
+    //divProcesando(true);
 
     $.ajax({
         url: urlAction,
@@ -25,7 +25,7 @@ function enviarPeticionAjax(urlAction) {
         dataType: 'html',
         success: function(respuesta) {
             $('#' + contenedor).html(respuesta);
-            divProcesando(false);
+            //divProcesando(false);
         },
         error: function() {
             mensaje('Se ha presentado un error al llamar Ajax!...');

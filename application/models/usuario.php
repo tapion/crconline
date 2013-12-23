@@ -25,6 +25,7 @@ class Usuario extends CI_Model {
                 
                 $this->db->select('*');
                 $this->db->from('usuarios');
+                $this->db->join('personas', 'usuarios.usuario_persona_tipo_doc_id = personas.persona_tipo_doc_id AND usuarios.usuario_persona_numero_id = personas.persona_numero_id');
                 $this->db->where('usuario_login', $login);
                 $this->db->where('usuario_password', md5($password) );
                 $this->db->where('usuario_estado', 'TRUE');

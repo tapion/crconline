@@ -9,12 +9,12 @@
             <ul class="nav nav-pills nav-stacked">
                 <li id="newServicio">
                     <a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/newServicio' ?>', 'divTabs');">Agregar </a></li>
-                <li id="consultar" class="active"><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/consultar' ?>', 'divTabs');">Consultar y/o Modificar</a></li>                          
+                <li id="consultar" class="active"><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/consultarAllServi' ?>', 'divTabs');">Consultar y/o Modificar</a></li>                          
             </ul>
         </div>
         <!-- div para mostrar los contenidos de los tabs --> 
         <div id="divTabs" class="tab-content container col-md-10" >
-            <script>enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/consultar' ?>', 'divTabs');</script>
+            <script>enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/consultarAllServi' ?>', 'divTabs');</script>
         </div>
     </div>
 </div>

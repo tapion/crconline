@@ -28,9 +28,13 @@ class Model_Admin extends CI_Model {
         return $query->result();
     }
     
-    function allTipoServicios(){
-        $this->db->select('*');
+    function allTipoServicios($empresa){
+        $this->db->select('tipos_servicios.*');
         $this->db->from('tipos_servicios');
+        if(isset($empresa) && !empty($empresa)){
+            $this->db->join('empresas_tipos_servicios', 'empresas_tipos_servicios.empresa_tipo_servicio_tipo_servicio_id = tipos_servicios.tipo_servicio_id and empresas_tipos_servicios.empresa_tipo_servicio_estado = TRUE');
+            $this->db->join('empresas', 'empresas.empresa_id = empresas_tipos_servicios.empresa_tipo_servicio_empresa_id AND empresas.empresa_id ='.$empresa);
+        }
         $query = $this->db->get();
         return $query->result();
     }
@@ -80,7 +84,14 @@ class Model_Admin extends CI_Model {
         }        
         return true;
     }
-
     
-
+    function allServicios(){
+        $this->db->select("servicios.servicio_id, servicios.servicio_nombre, servicios.servicio_valor, servicios.servicio_valor_certificado, tipos_servicios.tipo_servicio_nombre, sedes.sede_nombre, CASE servicios.servicio_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as estado", FALSE);
+        $this->db->from('servicios');
+        $this->db->join('tipos_servicios', 'tipos_servicios.tipo_servicio_id = servicios.servicio_tipo_servicio_id');
+        $this->db->join('sedes', 'sedes.sede_id = servicios.servicio_sede_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+        
 }

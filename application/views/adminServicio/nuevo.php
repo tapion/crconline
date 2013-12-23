@@ -194,7 +194,23 @@
     </div>
 </div>
 <div class="form-actions">   
-    <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/createServicio' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
+    <?php
+    if (isset($ident) && !empty($ident) && isset($opcion) && !empty($opcion)) {
+        ?>
+        <?php
+        if ($opcion == 'editServicio') {
+            ?>
+            <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/' . $opcion ?>', 'divTabs', 'formServicio');"><strong>Editar</strong></button>            
+            <?php
+        } ?>
+        <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/index' ?>', 'divTabs');"><strong>Cancelar</strong></button>
+        <?php
+    } else {
+        ?>
+        <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/createServicio' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
+        <?php
+    }
+    ?>
 </div>
 <script>$('.chzn-select').chosen();</script>
 <?= form_close(); ?>

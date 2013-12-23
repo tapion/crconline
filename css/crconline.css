@@ -46,3 +46,5 @@ legend.scheduler-border {
     padding-top: 5px;
     color:#B94A48
 }
+
+.man:hover{cursor: pointer}

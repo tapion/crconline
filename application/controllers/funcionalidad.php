@@ -3,7 +3,7 @@
  *
  * @author arkazero
  */
-
+ 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Funcionalidad extends CI_Controller {

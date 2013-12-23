@@ -28,14 +28,13 @@ class AdminServicio extends CI_Controller {
     public function newServicio($id = "", $opcion = "") {
         if(isset($id) && !empty($id) && isset($opcion) && !empty($opcion)) {
             $data['opcion'] = $opcion;
-            $data['ident'] = $id;
             # Consultar todo lo relacionado a la sede 
-            $data['registros'] = $this->Model_Admin->datosServicios;
+            $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
         }
         # Tipos De servicio
         $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
         # Consulta sedes por empresa
-        $data['sedes'] = $this->Model_Admin->filterSedeEmpresa($this->empresaUsuario);
+        $data['sedes'] = $this->Model_Admin->filterSedeEmpresa($this->sedeUsuario, $this->empresaUsuario);
         # Tipos  Examen con su respectivo subExamen asociado
         $matrizFinal = array();
         $data['tipoExamen'] = $this->Model_Admin->allTipoExamen();
@@ -57,11 +56,12 @@ class AdminServicio extends CI_Controller {
             $maxSubExa = $dtsMaxSubexamen->idsubexamen;
         }
         $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $idSer, $maxSubExa);
-        $this->load->view('adminServicio/consultar', $datos);
+        $this->consultarAllServi($datos);
     }
 
-    public function consultarAllServi() {
-        $datas['filtros'] = $this->Model_Admin->allServicios();
+    public function consultarAllServi($exito = "") {
+        $datas['exito'] = $exito;
+        $datas['filtros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario);
         $this->load->view('adminServicio/consultar', $datas);
     }
 

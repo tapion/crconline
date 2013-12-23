@@ -39,12 +39,17 @@ class Model_Admin extends CI_Model {
         return $query->result();
     }
     
-    function filterSedeEmpresa($idEmpresa){
+    function filterSedeEmpresa($idSede,$idEmpresa){        
         $this->db->select('*');
         $this->db->from('sedes');
-        $this->db->join('empresas', 'sedes.sede_empresa_id = empresas.empresa_id and empresas.empresa_estado = TRUE');
-        $this->db->where('sede_empresa_id',$idEmpresa);
-        $this->db->where('sede_estado', 'TRUE');        
+        $this->db->join('empresas', 'sedes.sede_empresa_id = empresas.empresa_id and empresas.empresa_estado = TRUE');        
+        $this->db->where('sede_estado', 'TRUE');
+        if(isset($idEmpresa) && !empty($idEmpresa)){
+            $this->db->where('sede_empresa_id',$idEmpresa);
+        }
+        if(isset($idSede) && !empty($idSede)){
+            $this->db->where('sede_id', $idSede);
+        }
         $query = $this->db->get();
         return $query->result();
     }
@@ -85,13 +90,23 @@ class Model_Admin extends CI_Model {
         return true;
     }
     
-    function allServicios(){
-        $this->db->select("servicios.servicio_id, servicios.servicio_nombre, servicios.servicio_valor, servicios.servicio_valor_certificado, tipos_servicios.tipo_servicio_nombre, sedes.sede_nombre, CASE servicios.servicio_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as estado", FALSE);
+    function allServicios($sede = "", $empresa = "", $idServi = ""){
+        $comSql = !empty($sede) ? "AND sedes.sede_id = $sede" : '';
+        $this->db->select("servicios.*, tipos_servicios.tipo_servicio_nombre, sedes.sede_nombre, CASE servicios.servicio_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as estado", FALSE);
         $this->db->from('servicios');
         $this->db->join('tipos_servicios', 'tipos_servicios.tipo_servicio_id = servicios.servicio_tipo_servicio_id');
-        $this->db->join('sedes', 'sedes.sede_id = servicios.servicio_sede_id');
+        $this->db->join('sedes', 'sedes.sede_id = servicios.servicio_sede_id '.$comSql);
+        if(isset($idServi) && !empty($idServi)){
+            $this->db->where('servicios.servicio_id',$idServi);
+        }elseif(isset($empresa) && !empty($empresa)){
+            $this->db->join('empresas', 'empresas.empresa_id = sedes.sede_empresa_id');
+        }
         $query = $this->db->get();
         return $query->result();
+    }
+    
+    function datosServicios(){
+        
     }
         
 }

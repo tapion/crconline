@@ -1,5 +1,19 @@
 <?php $urlBase = base_url('index.php'); ?>
 <?= form_open('', array('class' => 'form-search', 'id' => 'formServicio')); ?>
+<?php
+$seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $selNomSer = NUll;
+if (isset($registros) && !empty($registros)) {
+    foreach ($registros as $dtsRegistros) {
+        $seltipSer = $dtsRegistros->servicio_tipo_servicio_id;
+        $selSede = $dtsRegistros->servicio_sede_id;
+        $selEdadMin = $dtsRegistros->servicio_edad_minima;
+        $selEdadMax = $dtsRegistros->servicio_edad_maxima;
+        $selValSer = $dtsRegistros->servicio_valor;
+        $selValCer = $dtsRegistros->servicio_valor_certificado;
+        $selNomSer = $dtsRegistros->servicio_nombre;
+    }
+}
+?>
 <div class="container well well-sm">        
     <table style="width: 100%" border="0" cellpadding="5">
         <tr>
@@ -14,7 +28,7 @@
                 }
 
                 $js = 'class="chzn-select" id="tipServicio" onChange="" style="width: 40%" parsley-required="tipo servicio" parsley-error-container="div#errortipServicio"';
-                echo form_dropdown('tipoServicio', $opciones, 'large', $js);
+                echo form_dropdown('tipoServicio', $opciones, $seltipSer, $js);
                 ?>
             </td>
         </tr>
@@ -35,7 +49,7 @@
                 }
 
                 $js = 'class="chzn-select" id="sede" style="width: 25%" parsley-required="sede" parsley-error-container="div#errorSede"';
-                echo form_dropdown('sede', $opcSedes, 'large', $js);
+                echo form_dropdown('sede', $opcSedes, $selSede, $js);
                 ?>
             </td>
         </tr>
@@ -48,7 +62,7 @@
                 Servicio
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="text" id="txtServicio" name="txtServicio" placeholder="Servicio" parsley-required="servicio" value="<?php echo set_value('txtServicio'); ?>">
+                <input style="width: 25%" class="form-control" type="text" id="txtServicio" name="txtServicio" placeholder="Servicio" parsley-required="servicio" value="<?php echo $selNomSer; echo set_value('txtServicio'); ?>">
             </td>
         </tr>
         <tr>
@@ -63,7 +77,7 @@
                 }
 
                 $js = 'class="chzn-select" id="edadMin" style="width: 15%" parsley-required="edad m&iacute;nima" parsley-error-container="div#errorEdadMin"';
-                echo form_dropdown('edadMin', $edades, 'large', $js);
+                echo form_dropdown('edadMin', $edades, $selEdadMin , $js);
                 ?>
             </td>
         </tr>
@@ -78,7 +92,7 @@
             <td style="width: 80%">
                 <?php
                 $js = 'class="chzn-select" id="edadMax" style="width: 15%" parsley-required="edad m&aacute;xima" parsley-error-container="div#errorEdadMax"';
-                echo form_dropdown('edadMax', $edades, 'large', $js);
+                echo form_dropdown('edadMax', $edades, $selEdadMax , $js);
                 ?>
             </td>
         </tr>
@@ -91,7 +105,7 @@
                 Valor Servicio
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="number" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-required="valor servicio" parsley-min="0" value="<?php echo set_value('txtVlrServicio'); ?>">
+                <input style="width: 25%" class="form-control" type="number" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-required="valor servicio" parsley-min="0" value="<?php echo $selValSer; echo set_value('txtVlrServicio'); ?>">
             </td>
         </tr>
         <tr>
@@ -99,7 +113,7 @@
                 Valor Certificado
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-required="valor certificado" parsley-min="0" value="<?php echo set_value('txtVlrCerti'); ?>">
+                <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-required="valor certificado" parsley-min="0" value="<?php echo $selValCer; echo set_value('txtVlrCerti'); ?>">
             </td>
         </tr>
         <tr>
@@ -195,14 +209,14 @@
 </div>
 <div class="form-actions">   
     <?php
-    if (isset($ident) && !empty($ident) && isset($opcion) && !empty($opcion)) {
+    if (isset($opcion) && !empty($opcion)) {
         ?>
         <?php
         if ($opcion == 'editServicio') {
             ?>
             <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/' . $opcion ?>', 'divTabs', 'formServicio');"><strong>Editar</strong></button>            
-            <?php
-        } ?>
+            <?php }
+        ?>
         <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/index' ?>', 'divTabs');"><strong>Cancelar</strong></button>
         <?php
     } else {

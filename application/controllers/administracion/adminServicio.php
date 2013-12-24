@@ -31,9 +31,6 @@ class AdminServicio extends CI_Controller {
             # Consultar todo lo relacionado a la sede 
             $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
             $data['regSubexamen'] = $this->Model_Admin->allSubExamenServicio($id);
-            echo '<pre>';
-            print_r($data['regSubexamen']);
-            echo '</pre>';
         }
         # Tipos De servicio
         $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
@@ -52,12 +49,9 @@ class AdminServicio extends CI_Controller {
     public function createServicio() {
         $registro = $this->input->post();
         $idServicio = $this->Model_Admin->insertServicio($registro);
-        $maxSubexamen = $this->Model_Admin->maxSubExamen();
+        $maxSubExa = $this->Model_Admin->maxSubExamen();
         foreach ($idServicio as $dtsServicio) {
             $idSer = $dtsServicio->idservicio;
-        }
-        foreach ($maxSubexamen as $dtsMaxSubexamen) {
-            $maxSubExa = $dtsMaxSubexamen->idsubexamen;
         }
         $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $idSer, $maxSubExa);
         $this->consultarAllServi($datos);
@@ -69,13 +63,13 @@ class AdminServicio extends CI_Controller {
         $this->load->view('adminServicio/consultar', $datas);
     }
 
-    public function editServicio() {        
+    public function editServicio() {
         $registro = $this->input->post();
-//        $this->Model_Admin->deleteSubExamenServicio($registro['idServicio']);
-        
-        echo '<pre>';
-        print_r($registro);
-        echo '</pre>';
+        $this->Model_Admin->deleteSubExamenServicio($registro['idServicio']);
+        $maxSubExa = $this->Model_Admin->maxSubExamen();
+        $this->Model_Admin->editServicio($registro);
+        $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $registro['idServicio'], $maxSubExa);
+        $this->consultarAllServi($datos);
     }
 
 }

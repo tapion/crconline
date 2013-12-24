@@ -1,7 +1,7 @@
 <?php $urlBase = base_url('index.php'); ?>
 <?= form_open('', array('class' => 'form-search', 'id' => 'formServicio')); ?>
 <?php
-$seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $selNomSer = NUll;
+$seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $selNomSer = $script = NUll;
 if (isset($registros) && !empty($registros)) {
     foreach ($registros as $dtsRegistros) {
         $seltipSer = $dtsRegistros->servicio_tipo_servicio_id;
@@ -11,6 +11,11 @@ if (isset($registros) && !empty($registros)) {
         $selValSer = $dtsRegistros->servicio_valor;
         $selValCer = $dtsRegistros->servicio_valor_certificado;
         $selNomSer = $dtsRegistros->servicio_nombre;
+    }
+    if (isset($regSubexamen) && !empty($regSubexamen)) {
+        foreach ($regSubexamen as $dtsregSubexamen) {
+            $script .= "$('#" . $dtsregSubexamen->servicio_subexamen_subexamen_id . "').attr('checked',true);";
+        }
     }
     ?>
     <input type="hidden" name="idServicio" id="idServicio" value="<?= $dtsRegistros->servicio_id ?>" />
@@ -65,7 +70,8 @@ if (isset($registros) && !empty($registros)) {
                 Servicio
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="text" id="txtServicio" name="txtServicio" placeholder="Servicio" parsley-required="servicio" value="<?php echo $selNomSer;
+                <input style="width: 25%" class="form-control" type="text" id="txtServicio" name="txtServicio" placeholder="Servicio" parsley-required="servicio" value="<?php
+                echo $selNomSer;
                 echo set_value('txtServicio');
                 ?>">
             </td>
@@ -110,7 +116,8 @@ if (isset($registros) && !empty($registros)) {
                 Valor Servicio
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="number" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-required="valor servicio" parsley-min="0" value="<?php echo $selValSer;
+                <input style="width: 25%" class="form-control" type="number" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-required="valor servicio" parsley-min="0" value="<?php
+                echo $selValSer;
                 echo set_value('txtVlrServicio');
                 ?>">
             </td>
@@ -120,7 +127,8 @@ if (isset($registros) && !empty($registros)) {
                 Valor Certificado
             </td>
             <td style="width: 80%">
-                <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-required="valor certificado" parsley-min="0" value="<?php echo $selValCer;
+                <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-required="valor certificado" parsley-min="0" value="<?php
+                echo $selValCer;
                 echo set_value('txtVlrCerti');
                 ?>">
             </td>
@@ -151,9 +159,9 @@ if (isset($registros) && !empty($registros)) {
                         $comp = NULL;
                     ?>
                     <li <?= $comp; ?> ><a href="#<?= str_replace(' ', '', $dtsTipoExamen->tipo_examen_nombre); ?>" data-toggle="tab"><?= $dtsTipoExamen->tipo_examen_nombre; ?></a></li>
-    <?php
-}
-?>
+                    <?php
+                }
+                ?>
             </ul>   
             <div id="myTabContent" class="tab-content">
                 <?php
@@ -179,18 +187,18 @@ if (isset($registros) && !empty($registros)) {
                                                     <label>
                                                         <input type="checkbox" id="<?= $finSubExamen->subexamen_id; ?>" name="<?= $finSubExamen->subexamen_id; ?>">
                                                     </label>
-                                            <?= ucwords(strtolower($finSubExamen->subexamen_nombre)); ?>
+                                                    <?= ucwords(strtolower($finSubExamen->subexamen_nombre)); ?>
                                                 </div>
                                             </div>
-                    <?php
-                } else {
-                    ?>
+                                            <?php
+                                        } else {
+                                            ?>
                                             <div class="col-lg-6">
                                                 <div class="input-group">
                                                     <label>
                                                         <input type="checkbox" id="<?= $finSubExamen->subexamen_id; ?>" name="<?= $finSubExamen->subexamen_id; ?>">
                                                     </label>
-                                            <?= ucwords(strtolower($finSubExamen->subexamen_nombre)); ?>
+                                                    <?= ucwords(strtolower($finSubExamen->subexamen_nombre)); ?>
                                                 </div>
                                             </div>
                                             <?php
@@ -200,13 +208,13 @@ if (isset($registros) && !empty($registros)) {
                                 }
                                 ?>
                             </div>
-                        <?php
-                    }
-                    ?>
+                            <?php
+                        }
+                        ?>
                     </div>
-    <?php
-}
-?>
+                    <?php
+                }
+                ?>
             </div>
         </div>        
     </fieldset>    
@@ -216,7 +224,7 @@ if (isset($registros) && !empty($registros)) {
         </button>
     </div>
 </div>
-<div class="form-actions">   
+<div class="form-actions container" style="padding-left: 0px">   
     <?php
     if (isset($opcion) && !empty($opcion)) {
         ?>
@@ -231,9 +239,10 @@ if (isset($registros) && !empty($registros)) {
     } else {
         ?>
         <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/createServicio' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
-    <?php
-}
-?>
+        <?php
+    }
+    ?>
 </div>
 <script>$('.chzn-select').chosen();</script>
+<script><?= $script; ?></script>
 <?= form_close(); ?>

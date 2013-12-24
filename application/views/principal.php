@@ -37,7 +37,7 @@
         </div>
         
         <!-- div donde contendra el contenido -->
-        <div id="divContenido">
+        <div id="divContenido" class="container">
             aqui va el contenido
         </div>
         

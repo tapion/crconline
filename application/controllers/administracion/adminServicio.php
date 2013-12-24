@@ -26,10 +26,14 @@ class AdminServicio extends CI_Controller {
     }
 
     public function newServicio($id = "", $opcion = "") {
-        if(isset($id) && !empty($id) && isset($opcion) && !empty($opcion)) {
+        if (isset($id) && !empty($id) && isset($opcion) && !empty($opcion)) {
             $data['opcion'] = $opcion;
             # Consultar todo lo relacionado a la sede 
             $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
+            $data['regSubexamen'] = $this->Model_Admin->allSubExamenServicio($id);
+            echo '<pre>';
+            print_r($data['regSubexamen']);
+            echo '</pre>';
         }
         # Tipos De servicio
         $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
@@ -63,6 +67,15 @@ class AdminServicio extends CI_Controller {
         $datas['exito'] = $exito;
         $datas['filtros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario);
         $this->load->view('adminServicio/consultar', $datas);
+    }
+
+    public function editServicio() {        
+        $registro = $this->input->post();
+//        $this->Model_Admin->deleteSubExamenServicio($registro['idServicio']);
+        
+        echo '<pre>';
+        print_r($registro);
+        echo '</pre>';
     }
 
 }

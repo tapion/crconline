@@ -105,8 +105,17 @@ class Model_Admin extends CI_Model {
         return $query->result();
     }
     
-    function datosServicios(){
-        
+    function deleteSubExamenServicio($idServicio){
+        $this->db->where('servicio_subexamen_servicio_id', $idServicio);
+        $this->db->delete('servicios_subexamenes'); 
+    }
+    
+    function allSubExamenServicio($idServicio){
+        if(isset($idServicio) && !empty($idServicio)){
+            $this->db->where("servicio_subexamen_servicio_id", $idServicio);
+        }
+        $query = $this->db->get("servicios_subexamenes");
+        return $query->result();        
     }
         
 }

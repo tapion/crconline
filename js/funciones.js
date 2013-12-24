@@ -3,6 +3,8 @@
  * @param {string} urlAction Url de la peticion
  */
 function enviarPeticionAjax(urlAction) {
+    var contenedor;
+    var dtsFormulario;
     if (enviarPeticionAjax.arguments.length > 1) {
         contenedor = enviarPeticionAjax.arguments[1];
         if (typeof enviarPeticionAjax.arguments[2] != "undefined") {

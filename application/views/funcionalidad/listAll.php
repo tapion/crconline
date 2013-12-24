@@ -1,4 +1,4 @@
-<h1>Funcionalidades</h1>
+<?php $urlBase = base_url('index.php'); ?>
 <div class="table-responsive">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -23,12 +23,12 @@
                         <tr class="odd gradeX">
                             <td><?php echo $funcionalidad->funcionalidad_nombre; ?></td>
                             <td><?php echo $funcionalidad->funcionalidad_grupo_id; ?></td>
-                            <td><?php echo $funcionalidad->funcionalidad_estado; ?></td>
+                            <td><?php echo $funcionalidad->nombre_estado; ?></td>
                             <td><?php echo $funcionalidad->funcionalidad_url; ?></td>
                             <td>
                                 <table align="center" cellpadding="0" cellspacing="0" border="0" >
                                     <tr>
-                                        <td align="center" style="padding: 5px 5px 0px 0px; border-top: #ffffff"><button title="Editar" class="glyphicon glyphicon-edit btn btn-sm btn-info" ></button></td>
+                                        <td align="center" style="padding: 5px 5px 0px 0px; border-top: #ffffff"><button title="Editar" class="glyphicon glyphicon-edit btn btn-sm btn-info" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/editFunctionality/'.$funcionalidad->funcionalidad_id; ?>', 'divTabs');"></button></td>
                                         <td align="center" style="padding: 5px 5px 0px 0px; border-top: #ffffff"><button title="Consultar" class="glyphicon glyphicon-eye-open btn btn-sm btn-info"></button></td>
                                     </tr>
                                 </table>

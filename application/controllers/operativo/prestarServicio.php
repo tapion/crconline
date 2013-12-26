@@ -1,0 +1,38 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+/**
+ * Description of usuario
+ *
+ * @author Jerson Gomez
+ */
+class PrestarServicio extends CI_Controller {
+
+    // Constructor de la clase
+    function __construct() {
+        parent::__construct();
+        $this->load->model('operativos/modelo_prestar_servicios','Model_PresServi');
+        $this->load->model('modelo_personas','Model_Persona');
+        $this->dtssession = $this->session->userdata('logged_user');
+        foreach ($this->dtssession as $dtsSession) {
+            $this->sedeUsuario = $dtsSession->usuario_sede_id;
+            $this->empresaUsuario = $dtsSession->usuario_empresa_id;
+        }
+    }
+
+    public function index() {
+        $data['tiposDoc'] = $this->Model_Persona->tiposDocumento();
+        $this->load->view('prestarServicio/index', $data);
+    }
+    
+    function consultPersona(){
+        $registro = $this->input->post();
+        $dtsPersonales = $this->Model_Persona->datPersonalesPersona($registro);
+        echo '<pre>';
+        print_r($dtsPersonales);
+        echo '</pre>';
+    }
+
+}

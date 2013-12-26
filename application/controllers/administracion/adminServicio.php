@@ -13,7 +13,7 @@ class AdminServicio extends CI_Controller {
     // Constructor de la clase
     function __construct() {
         parent::__construct();
-        $this->load->model('Model_Admin');
+        $this->load->model('administradores/modelo_servicios','Model_Admin');
         $this->dtssession = $this->session->userdata('logged_user');
         foreach ($this->dtssession as $dtsSession) {
             $this->sedeUsuario = $dtsSession->usuario_sede_id;

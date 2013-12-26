@@ -8,7 +8,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Model_Admin extends CI_Model {
+class Modelo_Servicios extends CI_Model {
 
     function __construct() {
         parent::__construct();

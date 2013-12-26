@@ -244,7 +244,7 @@ if (isset($registros) && !empty($registros)) {
             if (isset($opcion) && !empty($opcion)) {
                 if ($opcion == 'editServicio') {
                     ?>
-                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/' . $opcion ?>', 'divTabs', 'formServicio');"><strong>Editar</strong></button>            
+                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/' . $opcion ?>', 'divTabs', 'formServicio');"><strong>Editar</strong></button>
                     <?php
                 }
                 ?>

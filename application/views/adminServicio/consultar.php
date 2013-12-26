@@ -10,13 +10,13 @@ if (isset($exito) && !empty($exito)) {
     <?php
 }
 ?>    
-<table>
+<table class="total">
     <tr>
         <td>
             <div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="text-muted bootstrap-admin-box-title">Listado De Servicios</div>
+                        <div class="text-muted bootstrap-admin-box-title"><label>Listado De Servicios</label></div>
                     </div>
                     <div class="bootstrap-admin-panel-content">
 
@@ -60,7 +60,6 @@ if (isset($exito) && !empty($exito)) {
                     </div>
                 </div>
             </div>
-
         </td>
     </tr>
 </table>

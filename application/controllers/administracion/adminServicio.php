@@ -26,6 +26,7 @@ class AdminServicio extends CI_Controller {
     }
 
     public function newServicio($id = "", $opcion = "") {
+        $data['titulo'] = 'Nuevo Servicio';
         if (isset($id) && !empty($id) && isset($opcion) && !empty($opcion)) {
             $data['opcion'] = $opcion;
             # Consultar todo lo relacionado a la sede 

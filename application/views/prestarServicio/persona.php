@@ -1,8 +1,24 @@
 <link href="<?php echo base_url('js/datepickerbootstrap/css/datepicker.css'); ?>" rel="stylesheet" media="screen">       
 <?php $urlBase = base_url('index.php'); ?>
-<?= form_open('', array('class' => 'form-search', 'id' => 'formServicio')); ?>
+<?= form_open('', array('class' => 'form-search', 'id' => 'formPersonas')); ?>
 <?php
-$seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $selNomSer = $script = NUll;
+$nombreP = $apellidoP = $lugarExpId = $estadoCivilP = $generoP = $fechaNaci = $lugarNaci = $edadP = $telP = $direccionP = $regimenP = $emailP = NULL;
+if(isset($dtsPersonales) && !empty($dtsPersonales)){
+    foreach ($dtsPersonales as $dtsPer){
+        $nombreP = $dtsPer->persona_nombres;
+        $apellidoP = $dtsPer->persona_apellidos;
+        $lugarExpId = $dtsPer->persona_lugar_expedicion_numero_id;
+        $estadoCivilP = $dtsPer->persona_estado_civil;
+        $generoP = ($dtsPer->persona_genero == 't') ? 'TRUE':'FALSE';
+        $fechaNaci = $dtsPer->persona_fecha_nacimiento;
+        $lugarNaci = $dtsPer->persona_lugar_nacimiento;
+        $edadP = $dtsPer->persona_edad;
+        $telP = $dtsPer->persona_telefono;
+        $direccionP = $dtsPer->persona_direccion;
+        $regimenP = $dtsPer->persona_direccion;
+        $emailP = $dtsPer->persona_direccion;
+    }    
+}
 ?>   
 <input type="hidden" name="numeroDocumento" id="numeroDocumento" value="<?= $registros['numeroDocumento']; ?>" />
 <input type="hidden" name="tipoDocumento" id="tipoDocumento" value="<?= $registros['tipoDocumento']; ?>" />
@@ -21,8 +37,8 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                             Nombre(s)
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="txtnombre" name="txtnombre" placeholder="Nombre(s)" parsley-required="nombre(s)" value="<?php
-                            echo $selValSer;
+                            <input class="form-control input-group" type="text" id="txtnombre" name="txtnombre" placeholder="Nombre(s)" parsley-required="nombre(s)" value="<?php
+                            echo $nombreP;
                             echo set_value('txtnombre');
                             ?>">                               
                         </td>
@@ -32,8 +48,8 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                             Apellido(s)
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="txtapellido" name="txtapellido" placeholder="Apellido(s)" parsley-required="apellido(s)" value="<?php
-                            echo $selValSer;
+                            <input class="form-control input-group" type="text" id="txtapellido" name="txtapellido" placeholder="Apellido(s)" parsley-required="apellido(s)" value="<?php
+                            echo $apellidoP;
                             echo set_value('txtapellido');
                             ?>">                               
                         </td>
@@ -43,10 +59,12 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                             Expedici&oacute;n de identificaci&oacute;n
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="txtlugarexpedicion" name="txtlugarexpedicion" placeholder="Lugar Expedici&oacute;n" parsley-required="expedici&oacute;n de identificaci&oacute;n" value="<?php
-                            echo $selValSer;
-                            echo set_value('txtlugarexpedicion');
-                            ?>">                               
+                            <?php
+                            $expid = array('' => 'Seleccione', '1' => 'bogota', '2' => 'funza');
+                            $js = 'class="chzn-select" id="lugarexpedicion" style="width: 80%" parsley-required="expedici&oacute;n de identificaci&oacute;n" parsley-error-container="div#errorExpid"';
+                            echo form_dropdown('lugarexpedicion', $expid, $lugarExpId, $js);
+                            ?>     
+                            <div id="errorExpid"></div>
                         </td>
                     </tr>
                     <tr>
@@ -55,10 +73,23 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                         </td>
                         <td>
                             <div style="width: 80%" class="input-group date" id="dp3" data-date="" data-date-format="yyyy-mm-dd">
-                                <input name="txtfechanacimiento" id="txtfechanacimiento" class="form-control" type="text" readonly="" value="" parsley-required="fecha nacimiento" parsley-error-container="div#errorFechaNaci">
+                                <input name="txtfechanacimiento" id="txtfechanacimiento" class="form-control input-group" type="text" readonly="" value="<?= $fechaNaci; ?>" parsley-required="fecha nacimiento" parsley-error-container="div#errorFechaNaci">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </div>
                             <div id='errorFechaNaci'></div>
+                        </td>
+                    </tr>
+                   <tr>
+                        <td style="width: 35%">
+                            Lugar Nacimiento
+                        </td>
+                        <td>
+                            <?php
+                            $lugNacimiento = array('' => 'Seleccione', '1' => 'bogota', '2' => 'funza');
+                            $js = 'class="chzn-select" id="lugarnacimiento" style="width: 80%" parsley-required="lugar nacimiento" parsley-error-container="div#errorLugNac"';
+                            echo form_dropdown('lugarnacimiento', $lugNacimiento, $lugarNaci, $js);
+                            ?>     
+                            <div id="errorLugNac"></div>
                         </td>
                     </tr>
                     <tr>
@@ -67,26 +98,13 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                         </td>
                         <td>
                             <?php
-                            $estados = array('' => 'Seleccione', 'FALSE' => 'Femenino', 'TRUE' => 'Masculino');
-                            $js = 'class="chzn-select" id="estado" style="width: 60%" parsley-required="genero" parsley-error-container="div#errorGenero"';
-                            echo form_dropdown('genero', $estados, NULL, $js);
+                            $genero = array('' => 'Seleccione', 'FALSE' => 'Femenino', 'TRUE' => 'Masculino');
+                            $js = 'class="chzn-select" id="genero" style="width: 60%" parsley-required="genero" parsley-error-container="div#errorGenero"';
+                            echo form_dropdown('genero', $genero, $generoP, $js);
                             ?>
                             <div id="errorGenero"></div>
                         </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 35%">
-                            Estado Civil
-                        </td>
-                        <td>
-                            <?php
-                            $estados = array('' => 'Seleccione','Casado(a)' => 'Casado(a)', 'Soltero(a)' => 'Soltero(a)', 'Viudo(a)' => 'Viudo(a)');
-                            $js = 'class="chzn-select" id="estadocivil" style="width: 60%; height:20px" parsley-required="estado civil" parsley-error-container="div#errorEstCivil"';
-                            echo form_dropdown('estadocivil', $estados, NULL, $js);
-                            ?>
-                            <div id="errorEstCivil"></div>
-                        </td>
-                    </tr>
+                    </tr>                    
                 </table>  
             </div>
             <div class="col-lg-6">
@@ -96,8 +114,8 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                             Direcci&oacute;n
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="txtdireccion" name="txtdireccion" placeholder="Direcci&oacute;n" parsley-required="Direcci&oacute;n" value="<?php
-                            echo $selValSer;
+                            <input class="form-control input-group" type="text" id="txtdireccion" name="txtdireccion" placeholder="direcci&oacute;n" parsley-required="Direcci&oacute;n" value="<?php
+                            echo $direccionP;
                             echo set_value('txtdireccion');
                             ?>">                               
                         </td>
@@ -107,8 +125,8 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                             Telefono
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="txttelefono" name="txttelefono" placeholder="Telefono" parsley-required="telefono" parsley-type="number" value="<?php
-                            echo $selValSer;
+                            <input class="form-control input-group" type="text" id="txttelefono" name="txttelefono" placeholder="Telefono" parsley-required="telefono" parsley-type="number" value="<?php
+                            echo $telP;
                             echo set_value('txttelefono');
                             ?>">                               
                         </td>
@@ -118,8 +136,8 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                             Correo Electronico
                         </td>
                         <td>
-                            <input class="form-control" type="text" id="txtemail" name="txtemail" placeholder="email: xxxx@xx.xx" parsley-required="correo electronico"  parsley-type="email" value="<?php
-                            echo $selValSer;
+                            <input class="form-control input-group" type="text" id="txtemail" name="txtemail" placeholder="email: xxxx@xx.xx" parsley-required="correo electronico"  parsley-type="email" value="<?php
+                            echo $emailP;
                             echo set_value('txtemail');
                             ?>">                               
                         </td>
@@ -130,11 +148,24 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                         </td>
                         <td>
                             <?php
-                            $estados = array('' => 'Seleccione','Ninguno' => 'Ninguno', 'Contributivo' => 'Contributivo', 'Pensionado' => 'Pensionado', 'Subsidiado' => 'Subsidiado');
+                            $regimen = array('' => 'Seleccione','Ninguno' => 'Ninguno', 'Contributivo' => 'Contributivo', 'Pensionado' => 'Pensionado', 'Subsidiado' => 'Subsidiado');
                             $js = 'class="chzn-select" id="regimen" style="width: 60%" parsley-required="regimen de afiliaci&oacute;n" parsley-error-container="div#errorRegimen"';
-                            echo form_dropdown('regimen', $estados, NULL, $js);
+                            echo form_dropdown('regimen', $regimen, $regimenP, $js);
                             ?>
                             <div id="errorRegimen"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 35%">
+                            Estado Civil
+                        </td>
+                        <td>
+                            <?php
+                            $estadocivil = array('' => 'Seleccione','Casado(a)' => 'Casado(a)', 'Soltero(a)' => 'Soltero(a)', 'Viudo(a)' => 'Viudo(a)');
+                            $js = 'class="chzn-select" id="estadocivil" style="width: 60%; height:20px" parsley-required="estado civil" parsley-error-container="div#errorEstCivil"';
+                            echo form_dropdown('estadocivil', $estadocivil, $estadoCivilP, $js);
+                            ?>
+                            <div id="errorEstCivil"></div>
                         </td>
                     </tr>
                 </table>  
@@ -145,12 +176,12 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
             if (isset($opcion) && !empty($opcion)) {
                 if ($opcion == 'editPersona') {
                     ?>
-                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/' . $opcion ?>', 'divTabs', 'formServicio');"><strong>Editar</strong></button>
+                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/' . $opcion ?>', 'divTabs', 'formPersonas');"><strong>Editar</strong></button>
                     <?php
                 }
             } else {
                 ?>
-                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/insertPersona' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
+                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/insertPersona' ?>', 'divTabs', 'formPersonas');"><strong>Ingresar</strong></button>
                 <?php
             }
             ?>
@@ -170,6 +201,7 @@ $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $s
                         orientation: "bottom auto",
                         autoclose: true
                     });
-                });
+                    enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/applet/'.$registros['tipoDocumento'].'/'.$registros['numeroDocumento'] ?>', 'dtsApplet');
+                });                
 </script>
 <?= form_close(); ?>

@@ -22,6 +22,12 @@ class PrestarServicio extends CI_Controller {
         }
     }
 
+    public function applet($tipoDoc, $numDoc) {
+        $datas['tipDoc'] = $tipoDoc;
+        $datas['numDoc'] = $numDoc;        
+        $this->load->view('prestarServicio/applet',$datas);
+    }
+    
     public function index() {
         $data['tiposDoc'] = $this->Model_Persona->tiposDocumento();
         $this->load->view('prestarServicio/index', $data);
@@ -34,7 +40,11 @@ class PrestarServicio extends CI_Controller {
             $data['opcion'] = 'editPersona';
         }
         echo '<script>$("#groupBotones").html("<button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"enviarPeticionAjax(\'' . base_url('index.php') . '/operativo/prestarServicio/index\');\"><strong>Cancelar</strong></button>");</script>';
-        $this->load->view('prestarServicio/persona', $data);        
+        $this->load->view('prestarServicio/persona', $data);
+        
+//        echo '<pre>';
+//        print_r($data);
+//        echo '</pre>';
     }
     
     function insertPersona(){

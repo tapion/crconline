@@ -35,7 +35,7 @@
                         <tr>
                             <td align="center" colspan="2">
                                 <div id="groupBotones">
-                                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/consultPersona' ?>', 'masDts', 'formConsulCliente');
+                                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/consultPersona' ?>', 'dtsPersonas', 'formConsulCliente');
                                             deshabilitarcampos('dtsBasicosPersonas', 'formConsulCliente', new Array('input', 'select'));"><strong>Consultar</strong></button>
                                 </div>
                             </td>
@@ -43,10 +43,11 @@
                     </table>
                     <div id="errortipDoc" align="justify"></div>
                 </form>
+                <div id="dtsApplet"></div>
             </div>
             <div class="tab-content container col-md-9">
-                <div id="masDts" ></div>
-            </div>
+                <div id="dtsPersonas" ></div>
+            </div>            
         </div>
     </div>   
 </div>

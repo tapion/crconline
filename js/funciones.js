@@ -115,7 +115,6 @@ function deshabilitarcampos(contenedor, form, array) {
         for (i = 0; i < array.length; i++) {
             $("#" + contenedor + " " + array[i]).each(function(index) {
                 var ident = $(this).attr("id");
-                console.log('acaca '+array[i]);
                 if (array[i] === 'select') {
                     $("#" + ident + "_chzn").removeClass("chzn-with-drop chzn-container-active").addClass("chzn-container chzn-container-single chzn-disabled");
                 } else {

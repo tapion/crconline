@@ -34,7 +34,10 @@
                         </tr>
                         <tr>
                             <td align="center" colspan="2">
-                                <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/consultPersona' ?>', 'masDts', 'formConsulCliente');deshabilitarcampos('dtsBasicosPersonas','formConsulCliente', new Array('input','select'));"><strong>Consultar</strong></button>
+                                <div id="groupBotones">
+                                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/consultPersona' ?>', 'masDts', 'formConsulCliente');
+                                            deshabilitarcampos('dtsBasicosPersonas', 'formConsulCliente', new Array('input', 'select'));"><strong>Consultar</strong></button>
+                                </div>
                             </td>
                         </tr>
                     </table>

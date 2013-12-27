@@ -35,7 +35,6 @@ function enviarPeticionAjax(urlAction) {
         }
     });
 
-
 }
 
 /*

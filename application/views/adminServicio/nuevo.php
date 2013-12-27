@@ -131,7 +131,7 @@ if (isset($registros) && !empty($registros)) {
                         Valor Servicio
                     </td>
                     <td style="width: 80%">
-                        <input style="width: 25%" class="form-control" type="number" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-required="valor servicio" parsley-min="0" value="<?php
+                        <input style="width: 25%" class="form-control" type="text" id="txtVlrServicio" name="txtVlrServicio" placeholder="Valor Servicio" parsley-required="valor servicio" parsley-type="number" parsley-min="0" value="<?php
                         echo $selValSer;
                         echo set_value('txtVlrServicio');
                         ?>">
@@ -142,7 +142,7 @@ if (isset($registros) && !empty($registros)) {
                         Valor Certificado
                     </td>
                     <td style="width: 80%">
-                        <input style="width: 25%" class="form-control" type="number" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-required="valor certificado" parsley-min="0" value="<?php
+                        <input style="width: 25%" class="form-control" type="text" id="txtVlrCerti" name="txtVlrCerti" placeholder="Valor Certificado" parsley-required="valor certificado" parsley-type="number" parsley-min="0" value="<?php
                         echo $selValCer;
                         echo set_value('txtVlrCerti');
                         ?>">

@@ -16,15 +16,16 @@ class Empresas extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('adminEmpresas/index');
+        $data['companies'] = $this->modelo_empresas->getCompany();
+        $this->load->view('adminEmpresas/index',$data);
     }
 
-    public function crear($id = "", $opcion = "") {
-        if(isset($id) && !empty($id) && isset($opcion) && !empty($opcion)) {
-            $data['opcion'] = $opcion;
-            # Consultar todo lo relacionado a la sede 
-            $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
-        }
+    public function create() {
+//        if(isset($id) && !empty($id) && isset($opcion) && !empty($opcion)) {
+//            $data['opcion'] = $opcion;
+//            # Consultar todo lo relacionado a la sede 
+//            $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
+//        }
         # Tipos De servicio
         $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
         # Consulta sedes por empresa
@@ -53,10 +54,14 @@ class Empresas extends CI_Controller {
         $this->consultarAllServi($datos);
     }
 
-    public function consultarAllServi($exito = "") {
-        $datas['exito'] = $exito;
-        $datas['filtros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario);
+    public function getAllCompany() {
+//        $datas['exito'] = $exito;
+        $datas['filtros'] = $this->modelo_empresas->getCompany();
         $this->load->view('adminServicio/consultar', $datas);
+    }
+    
+    public function editar($empresa_id){
+        
     }
 
 }

@@ -27,17 +27,18 @@ class Empresas extends CI_Controller {
 //            $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
 //        }
         # Tipos De servicio
-        $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
-        # Consulta sedes por empresa
-        $data['sedes'] = $this->Model_Admin->filterSedeEmpresa($this->sedeUsuario, $this->empresaUsuario);
-        # Tipos  Examen con su respectivo subExamen asociado
-        $matrizFinal = array();
-        $data['tipoExamen'] = $this->Model_Admin->allTipoExamen();
-        foreach ($data['tipoExamen'] as $tipoExamen) {
-            $matrizFinal[$tipoExamen->tipo_examen_id] = $this->Model_Admin->filterTipoSubexamen($tipoExamen->tipo_examen_id);
-        }
-        $data['subExamen'] = $matrizFinal;
-        $this->load->view('adminServicio/nuevo', $data);
+//        $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
+//        # Consulta sedes por empresa
+//        $data['sedes'] = $this->Model_Admin->filterSedeEmpresa($this->sedeUsuario, $this->empresaUsuario);
+//        # Tipos  Examen con su respectivo subExamen asociado
+//        $matrizFinal = array();
+//        $data['tipoExamen'] = $this->Model_Admin->allTipoExamen();
+//        foreach ($data['tipoExamen'] as $tipoExamen) {
+//            $matrizFinal[$tipoExamen->tipo_examen_id] = $this->Model_Admin->filterTipoSubexamen($tipoExamen->tipo_examen_id);
+//        }
+//        $data['subExamen'] = $matrizFinal;
+        $this->load->view('adminEmpresas/nuevo');
+//        $this->load->view('adminServicio/nuevo', $data);
     }
 
     public function createServicio() {

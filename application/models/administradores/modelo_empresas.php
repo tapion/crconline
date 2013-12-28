@@ -105,18 +105,6 @@ class Modelo_empresas extends CI_Model {
                 inner join ciudades ciu on ciu.ciudad_id = emp.ciudad_id
                 inner join paises pai on pai.pais_id = ciu.pais_id
                 order by emp.empresa_nombre");
-//        $comSql = !empty($sede) ? "AND sedes.sede_id = $sede" : '';
-//        $this->db->select("servicios.*, tipos_servicios.tipo_servicio_nombre, sedes.sede_nombre, CASE servicios.servicio_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as estado", FALSE);
-//        $this->db->from('servicios');
-//        $this->db->join('tipos_servicios', 'tipos_servicios.tipo_servicio_id = servicios.servicio_tipo_servicio_id');
-//        $this->db->join('sedes', 'sedes.sede_id = servicios.servicio_sede_id '.$comSql);
-//        if(isset($idServi) && !empty($idServi)){
-//            $this->db->where('servicios.servicio_id',$idServi);
-//        }elseif(isset($empresa) && !empty($empresa)){
-//            $this->db->join('empresas', 'empresas.empresa_id = sedes.sede_empresa_id');
-//        }
-//        $query = $this->db->get();
-//        return $query->result();
     }
     
     function datosServicios(){

@@ -21,7 +21,8 @@ class Model_Funcionalidad extends CI_Model {
         $this->id = 'funcionalidad_id';
     }
     
-    public function listAll(){        
+    public function listAll(){                             
+        $this->db->select("funcionalidades.*, CASE funcionalidades.funcionalidad_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as nombre_estado",FALSE);
         $query = $this->db->get('funcionalidades');
         return $query->result();        
     }
@@ -43,8 +44,21 @@ class Model_Funcionalidad extends CI_Model {
         $this->db->select("*");
         $this->db->from("funcionalidades");
         $this->db->where("funcionalidad_id",$id);
-        $query = $this->db->query();
+        $query = $this->db->get();
         return $query->result();
+    }
+    
+    public function editFunctionality($parametros){
+        $data = array(
+                'funcionalidad_nombre' => $parametros['name'],
+                'funcionalidad_grupo_id' => $parametros['grupo'],
+                'funcionalidad_estado' => $parametros['estado'],
+                'funcionalidad_url' => $parametros['url']
+            );
+
+        $this->db->where('funcionalidad_id', $parametros['funcionalidad_id']);
+        $this->db->update('funcionalidades', $data);
+
     }
 }
 ?>

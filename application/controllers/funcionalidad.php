@@ -39,11 +39,10 @@ class Funcionalidad extends CI_Controller {
         $this->load->view('funcionalidad/newFunctionality.php',$data);        
     }   
     
-    public function editFunctionality(){
-        $funcionalidad = $this->input->post();                                
-        $data['funcionalidad'] = $this->Model_Funcionalidad->searchFunctionality($funcionalidad['funcionalidad_id']);
+    public function editFunctionality($funcionalidad_id){                                   
+        $data['funcionalidad'] = $this->Model_Funcionalidad->searchFunctionality($funcionalidad_id);
         $this->load->model('Model_Grupo');
-        $data['grupos'] = $this->Model_Grupo->listAll();
+        $data['grupos'] = $this->Model_Grupo->listAll();        
         $this->load->view('funcionalidad/newFunctionality.php',$data);        
     }
     

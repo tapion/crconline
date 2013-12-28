@@ -18,7 +18,7 @@ function enviarPeticionAjax(urlAction) {
         dtsFormulario = "";
     }
 
-    //divProcesando(true);
+    divProcesando(true);
 
     $.ajax({
         url: urlAction,
@@ -27,14 +27,13 @@ function enviarPeticionAjax(urlAction) {
         dataType: 'html',
         success: function(respuesta) {
             $('#' + contenedor).html(respuesta);
-            //divProcesando(false);
+            divProcesando(false);
         },
         error: function() {
             mensaje('Se ha presentado un error al llamar Ajax!...');
             divProcesando(false);
         }
     });
-
 
 }
 
@@ -101,6 +100,27 @@ function marcaciones(marcar) {
         $('input[type=checkbox]').prop('checked', false);
         $('#marcar').html('&nbsp;Marcar Todos');
         $('#btnselect').attr('onclick', 'marcaciones(true);');
+    }
+}
+
+function deshabilitarcampos(contenedor, form, array) {
+    var exito = true;
+    if (typeof form != "undefined") {
+        if (!$("#" + form).parsley('validate')) {
+            exito = false;
+        }
+    }
+    if (exito) {
+        for (i = 0; i < array.length; i++) {
+            $("#" + contenedor + " " + array[i]).each(function(index) {
+                var ident = $(this).attr("id");
+                if (array[i] === 'select') {
+                    $("#" + ident + "_chzn").removeClass("chzn-with-drop chzn-container-active").addClass("chzn-container chzn-container-single chzn-disabled");
+                } else {
+                    $("#" + ident).attr("disabled", "disabled");
+                }
+            });
+        }
     }
 }
 

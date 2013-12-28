@@ -9,8 +9,9 @@ class Welcome extends Private_Controller {
             redirect ('welcome/login'); 
         }
         
-        $datos = array( 'listaMenu' => array('Administracion' => array( 'Usuarios' => 'usuario/index', 'Servicio' => 'administracion/adminServicio/index' , 'Personas' => 'url', 'Empresas' => 'administracion/empresas/', 'Funcionalidades' => 'funcionalidad/index' ),
-                                             'Examenes' => array( 'Optometria' => 'url', 'Audiometria' => 'url', 'Medico' => 'url', 'dividir' => 'dividir' ,'Reportes' => array('Pagos' => 'url', 'Usuarios' => 'url'))
+        $datos = array( 'listaMenu' => array('Administracion' => array( 'Usuarios' => 'usuario/index', 'Servicio' => 'administracion/adminServicio/index' , 'Personas' => 'url', 'Empresas' => 'administracion/empresas/', 'Funcionalidades' => 'funcionalidad/index', 'Sedes' => 'administracion/sedes/index' ),
+                                             'Examenes' => array( 'Optometria' => 'url', 'Audiometria' => 'url', 'Medico' => 'url', 'dividir' => 'dividir' ,'Reportes' => array('Pagos' => 'url', 'Usuarios' => 'url')),
+                                             'Operativo' => array('Clientes' => 'url', 'Control Turnos' => 'url', 'Facturas'=>'url','Prestar Servicio' => 'operativo/prestarServicio/index'),
                                             )
                       );    
 

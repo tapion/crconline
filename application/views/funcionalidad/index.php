@@ -13,7 +13,7 @@
             </ul>
         </div>
         <!-- div para mostrar los contenidos de los tabs --> 
-        <div id="divTabs" class="tab-content container col-md-10" >
+        <div id="divTabs" class="tab-content container col-md-10">
             <script>enviarPeticionAjax('<?= $urlBase . '/funcionalidad/listAllFunctionality' ?>', 'divTabs');</script>
         </div>
     </div>        

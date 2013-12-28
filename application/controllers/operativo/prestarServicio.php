@@ -24,10 +24,14 @@ class PrestarServicio extends CI_Controller {
 
     public function applet($tipoDoc, $numDoc) {
         $datas['tipDoc'] = $tipoDoc;
-        $datas['numDoc'] = $numDoc;        
-        $this->load->view('prestarServicio/applet',$datas);
+        $datas['numDoc'] = $numDoc;
+        $this->load->view('prestarServicio/applet', $datas);
     }
     
+    public function indexServicio() {        
+        $this->load->view('prestarServicio/solicitudServicio');
+    }
+
     public function index() {
         $data['tiposDoc'] = $this->Model_Persona->tiposDocumento();
         $this->load->view('prestarServicio/index', $data);
@@ -36,24 +40,20 @@ class PrestarServicio extends CI_Controller {
     function consultPersona() {
         $data['registros'] = $this->input->post();
         $data['dtsPersonales'] = $this->Model_Persona->datPersonalesPersona($data['registros']);
-        if(!empty($data['dtsPersonales'])){
+        if (!empty($data['dtsPersonales'])) {
             $data['opcion'] = 'editPersona';
         }
         echo '<script>$("#groupBotones").html("<button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"enviarPeticionAjax(\'' . base_url('index.php') . '/operativo/prestarServicio/index\');\"><strong>Cancelar</strong></button>");</script>';
         $this->load->view('prestarServicio/persona', $data);
-        
-//        echo '<pre>';
-//        print_r($data);
-//        echo '</pre>';
+
     }
-    
-    function insertPersona(){
+
+    function newEditPersona($opcion = "") {        
         $data['registros'] = $this->input->post();
-        print_r($data);
-    }
-    
-    function editPersona(){
-        
+        $datos['exito'] = $this->Model_Persona->insertEditPersona($data['registros'], $opcion);        
+        if ($datos['exito']) {
+            echo "enviarPeticionAjax('" . base_url('index.php') . "/operativo/prestarServicio/indexServicio', 'dtsServicio');";
+        }
     }
 
 }

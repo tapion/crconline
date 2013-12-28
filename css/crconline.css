@@ -47,7 +47,9 @@ legend.scheduler-border {
     color:#B94A48
 }
 
-.man:hover{cursor: pointer}
+.man:hover{
+    cursor: pointer
+}
 
 .degradeContent{
     padding: 15px 10px 20px 15px; 
@@ -57,4 +59,8 @@ legend.scheduler-border {
 
 .total{
     width: 100%;
+}
+
+.mayusPrimeras{
+    text-transform: capitalize;
 }

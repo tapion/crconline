@@ -47,6 +47,7 @@
             </div>
             <div class="tab-content container col-md-9">
                 <div id="dtsPersonas" ></div>
+                <div id="dtsServicio" ></div>
             </div>            
         </div>
     </div>   

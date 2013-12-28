@@ -15,8 +15,8 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
         $edadP = $dtsPer->persona_edad;
         $telP = $dtsPer->persona_telefono;
         $direccionP = $dtsPer->persona_direccion;
-        $regimenP = $dtsPer->persona_direccion;
-        $emailP = $dtsPer->persona_direccion;
+        $regimenP = $dtsPer->persona_regimen;
+        $emailP = $dtsPer->persona_email;
     }    
 }
 ?>   
@@ -37,7 +37,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                             Nombre(s)
                         </td>
                         <td>
-                            <input class="form-control input-group" type="text" id="txtnombre" name="txtnombre" placeholder="Nombre(s)" parsley-required="nombre(s)" value="<?php
+                            <input class="form-control input-group mayusPrimeras" type="text" id="txtnombre" name="txtnombre" placeholder="Nombre" parsley-required="nombre(s)" value="<?php
                             echo $nombreP;
                             echo set_value('txtnombre');
                             ?>">                               
@@ -48,7 +48,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                             Apellido(s)
                         </td>
                         <td>
-                            <input class="form-control input-group" type="text" id="txtapellido" name="txtapellido" placeholder="Apellido(s)" parsley-required="apellido(s)" value="<?php
+                            <input class="form-control input-group mayusPrimeras" type="text" id="txtapellido" name="txtapellido" placeholder="Apellido" parsley-required="apellido(s)" value="<?php
                             echo $apellidoP;
                             echo set_value('txtapellido');
                             ?>">                               
@@ -114,7 +114,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                             Direcci&oacute;n
                         </td>
                         <td>
-                            <input class="form-control input-group" type="text" id="txtdireccion" name="txtdireccion" placeholder="direcci&oacute;n" parsley-required="Direcci&oacute;n" value="<?php
+                            <input class="form-control input-group mayusPrimeras" type="text" id="txtdireccion" name="txtdireccion" placeholder="direcci&oacute;n" parsley-required="Direcci&oacute;n" value="<?php
                             echo $direccionP;
                             echo set_value('txtdireccion');
                             ?>">                               
@@ -125,7 +125,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                             Telefono
                         </td>
                         <td>
-                            <input class="form-control input-group" type="text" id="txttelefono" name="txttelefono" placeholder="Telefono" parsley-required="telefono" parsley-type="number" value="<?php
+                            <input class="form-control input-group mayusPrimeras" type="text" id="txttelefono" name="txttelefono" placeholder="Telefono" parsley-required="telefono" parsley-type="number" value="<?php
                             echo $telP;
                             echo set_value('txttelefono');
                             ?>">                               
@@ -136,7 +136,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                             Correo Electronico
                         </td>
                         <td>
-                            <input class="form-control input-group" type="text" id="txtemail" name="txtemail" placeholder="email: xxxx@xx.xx" parsley-required="correo electronico"  parsley-type="email" value="<?php
+                            <input class="form-control input-group mayusPrimeras" type="text" id="txtemail" name="txtemail" placeholder="email: xxxx@xx.xx" parsley-required="correo electronico"  parsley-type="email" value="<?php
                             echo $emailP;
                             echo set_value('txtemail');
                             ?>">                               
@@ -176,12 +176,12 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
             if (isset($opcion) && !empty($opcion)) {
                 if ($opcion == 'editPersona') {
                     ?>
-                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/' . $opcion ?>', 'divTabs', 'formPersonas');"><strong>Editar</strong></button>
+                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarDts();"><strong>Editar</strong></button>
                     <?php
                 }
             } else {
                 ?>
-                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/insertPersona' ?>', 'divTabs', 'formPersonas');"><strong>Ingresar</strong></button>
+                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/newEditPersona' ?>', 'divTabs', 'formPersonas');"><strong>Ingresar</strong></button>
                 <?php
             }
             ?>
@@ -202,6 +202,11 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                         autoclose: true
                     });
                     enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/applet/'.$registros['tipoDocumento'].'/'.$registros['numeroDocumento'] ?>', 'dtsApplet');
-                });                
+                    
+                });     
+                
+                function  enviarDts(){
+                    console.log(enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/newEditPersona/' . $opcion ?>', 'divTabs', 'formPersonas'));
+                }
 </script>
 <?= form_close(); ?>

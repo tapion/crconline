@@ -58,8 +58,20 @@ if (isset($funcionalidad) && !empty($funcionalidad)) {
             <div class="form-group">
                 <label for="urlFunctionality">URL Funcionalidad</label>
                 <input type="text" name="url" class="form-control" id="urlFunctionality" placeholder="URL Funcionalidad" parsley-required="URL Funcionalidad" value="<?php echo $funcionalidad_url;?>">
-            </div>            
-            <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/createFunctionality' ?>', 'divTabs', 'formFunctionality');"><strong>Agregar</strong></button>
+            </div>   
+            <?php 
+            if ( !empty($funcionalidad_id) ){
+                ?>
+                <input type="hidden" name="funcionalidad_id" value="<?php echo $funcionalidad_id;?>"/>
+                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/editFunctionality' ?>', 'divTabs', 'formFunctionality');"><strong>Editar</strong></button>
+                <?php
+            }else{
+                ?>
+                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/createFunctionality' ?>', 'divTabs', 'formFunctionality');"><strong>Agregar</strong></button>
+                <?php
+            }
+            ?>
+            <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/listAllFunctionality' ?>', 'divTabs');"><strong>Ver Todas</strong></button>
         </div>
     </div>
 </div>

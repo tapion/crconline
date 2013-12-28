@@ -23,10 +23,14 @@ class Funcionalidad extends CI_Controller {
         $this->load->view('funcionalidad/listAll.php',$data);       
     }
     
-    public function newFunctionality(){
+    public function newFunctionality($funcionalidad_id = ""){
+        if( $funcionalidad_id > 0 ){
+            $data['funcionalidad'] = $this->Model_Funcionalidad->searchFunctionality($funcionalidad_id);
+        }else{
+            $data['funcionalidad'] = "";
+        }
         $this->load->model('Model_Grupo');
-        $data['grupos'] = $this->Model_Grupo->listAll();
-        $data['funcionalidad'] = "";
+        $data['grupos'] = $this->Model_Grupo->listAll();        
         $this->load->view('funcionalidad/newFunctionality.php',$data);       
     }
     
@@ -39,11 +43,25 @@ class Funcionalidad extends CI_Controller {
         $this->load->view('funcionalidad/newFunctionality.php',$data);        
     }   
     
-    public function editFunctionality($funcionalidad_id){                                   
-        $data['funcionalidad'] = $this->Model_Funcionalidad->searchFunctionality($funcionalidad_id);
+    public function editFunctionality(){                                   
+        $funcionalidad = $this->input->post();
+        $funciona_id = $this->Model_Funcionalidad->editFunctionality($funcionalidad);
+        
+        if( $funciona_id > 0 ){
+            $data['funcionalidad'] = $this->Model_Funcionalidad->searchFunctionality($funciona_id);
+        }else{
+            $data['funcionalidad'] = "";
+        }
         $this->load->model('Model_Grupo');
         $data['grupos'] = $this->Model_Grupo->listAll();        
-        $this->load->view('funcionalidad/newFunctionality.php',$data);        
+        $this->load->view('funcionalidad/newFunctionality.php',$data);          
+    }
+    
+    public function classifyFunctionalities(){
+        $this->load->model('Model_Grupo');
+        $data['funcionalidades'] = $this->Model_Funcionalidad->listAll();
+        $data['grupos'] = $this->Model_Grupo->listAll();        
+        $this->load->view('funcionalidad/classifyFunctionalities.php',$data);       
     }
     
 }

@@ -9,7 +9,7 @@
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/listAllFunctionality' ?>', 'divTabs')">Listar</a></li>
                 <li><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/newFunctionality' ?>', 'divTabs')">Nuevo</a></li>
-                <li><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/ordenar' ?>', 'divTabs')">Ordenar Modulos</a></li>                          
+                <li><a href="#" data-toggle="tab" onclick="enviarPeticionAjax('<?= $urlBase . '/funcionalidad/classifyFunctionalities' ?>', 'divTabs')">Ordenar Modulos</a></li>                          
             </ul>
         </div>
         <!-- div para mostrar los contenidos de los tabs --> 

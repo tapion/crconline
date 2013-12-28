@@ -22,7 +22,10 @@ class Model_Funcionalidad extends CI_Model {
     }
     
     public function listAll(){                             
-        $this->db->select("funcionalidades.*, CASE funcionalidades.funcionalidad_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as nombre_estado",FALSE);
+        $this->db->select("funcionalidades.*, 
+                            CASE funcionalidades.funcionalidad_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as nombre_estado,
+                            grupos.grupo_nombre as nombre_grupo",FALSE);
+        $this->db->join("grupos", "grupos.grupo_id = funcionalidades.funcionalidad_grupo_id");
         $query = $this->db->get('funcionalidades');
         return $query->result();        
     }
@@ -58,7 +61,7 @@ class Model_Funcionalidad extends CI_Model {
 
         $this->db->where('funcionalidad_id', $parametros['funcionalidad_id']);
         $this->db->update('funcionalidades', $data);
-
+        return $parametros['funcionalidad_id'];
     }
 }
 ?>

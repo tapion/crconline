@@ -3,13 +3,13 @@
 <?= form_open('', array('class' => 'form-search', 'id' => 'formPersonas')); ?>
 <?php
 $nombreP = $apellidoP = $lugarExpId = $estadoCivilP = $generoP = $fechaNaci = $lugarNaci = $edadP = $telP = $direccionP = $regimenP = $emailP = NULL;
-if(isset($dtsPersonales) && !empty($dtsPersonales)){
-    foreach ($dtsPersonales as $dtsPer){
+if (isset($dtsPersonales) && !empty($dtsPersonales)) {
+    foreach ($dtsPersonales as $dtsPer) {
         $nombreP = $dtsPer->persona_nombres;
         $apellidoP = $dtsPer->persona_apellidos;
         $lugarExpId = $dtsPer->persona_lugar_expedicion_numero_id;
         $estadoCivilP = $dtsPer->persona_estado_civil;
-        $generoP = ($dtsPer->persona_genero == 't') ? 'TRUE':'FALSE';
+        $generoP = ($dtsPer->persona_genero == 't') ? 'TRUE' : 'FALSE';
         $fechaNaci = $dtsPer->persona_fecha_nacimiento;
         $lugarNaci = $dtsPer->persona_lugar_nacimiento;
         $edadP = $dtsPer->persona_edad;
@@ -17,7 +17,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
         $direccionP = $dtsPer->persona_direccion;
         $regimenP = $dtsPer->persona_regimen;
         $emailP = $dtsPer->persona_email;
-    }    
+    }
 }
 ?>   
 <input type="hidden" name="numeroDocumento" id="numeroDocumento" value="<?= $registros['numeroDocumento']; ?>" />
@@ -79,7 +79,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                             <div id='errorFechaNaci'></div>
                         </td>
                     </tr>
-                   <tr>
+                    <tr>
                         <td style="width: 35%">
                             Lugar Nacimiento
                         </td>
@@ -148,7 +148,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                         </td>
                         <td>
                             <?php
-                            $regimen = array('' => 'Seleccione','Ninguno' => 'Ninguno', 'Contributivo' => 'Contributivo', 'Pensionado' => 'Pensionado', 'Subsidiado' => 'Subsidiado');
+                            $regimen = array('' => 'Seleccione', 'Ninguno' => 'Ninguno', 'Contributivo' => 'Contributivo', 'Pensionado' => 'Pensionado', 'Subsidiado' => 'Subsidiado');
                             $js = 'class="chzn-select" id="regimen" style="width: 60%" parsley-required="regimen de afiliaci&oacute;n" parsley-error-container="div#errorRegimen"';
                             echo form_dropdown('regimen', $regimen, $regimenP, $js);
                             ?>
@@ -161,7 +161,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                         </td>
                         <td>
                             <?php
-                            $estadocivil = array('' => 'Seleccione','Casado(a)' => 'Casado(a)', 'Soltero(a)' => 'Soltero(a)', 'Viudo(a)' => 'Viudo(a)');
+                            $estadocivil = array('' => 'Seleccione', 'Casado(a)' => 'Casado(a)', 'Soltero(a)' => 'Soltero(a)', 'Viudo(a)' => 'Viudo(a)');
                             $js = 'class="chzn-select" id="estadocivil" style="width: 60%; height:20px" parsley-required="estado civil" parsley-error-container="div#errorEstCivil"';
                             echo form_dropdown('estadocivil', $estadocivil, $estadoCivilP, $js);
                             ?>
@@ -176,7 +176,7 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
             if (isset($opcion) && !empty($opcion)) {
                 if ($opcion == 'editPersona') {
                     ?>
-                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarDts();"><strong>Editar</strong></button>
+                    <button id="pruebass" class="btn btn-sm btn-primary" type="button" onclick="enviarDts();"><strong>Editar</strong></button>
                     <?php
                 }
             } else {
@@ -201,12 +201,12 @@ if(isset($dtsPersonales) && !empty($dtsPersonales)){
                         orientation: "bottom auto",
                         autoclose: true
                     });
-                    enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/applet/'.$registros['tipoDocumento'].'/'.$registros['numeroDocumento'] ?>', 'dtsApplet');
-                    
-                });     
-                
-                function  enviarDts(){
-                    console.log(enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/newEditPersona/' . $opcion ?>', 'divTabs', 'formPersonas'));
+                    enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/applet/' . $registros['tipoDocumento'] . '/' . $registros['numeroDocumento'] ?>', 'dtsApplet');
+
+                });
+
+                function  enviarDts() {
+                    enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/newEditPersona/' . $opcion ?>', 'divTabs', 'formPersonas');
                 }
 </script>
 <?= form_close(); ?>

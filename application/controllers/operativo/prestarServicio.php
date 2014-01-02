@@ -34,6 +34,7 @@ class PrestarServicio extends CI_Controller {
 
     public function index() {
         $data['tiposDoc'] = $this->Model_Persona->tiposDocumento();
+//        echo "<script>enviarPeticionAjax('" . base_url('index.php') . "/operativo/prestarServicio/indexServicio', 'dtsServicio');</script>";
         $this->load->view('prestarServicio/index', $data);
     }
 
@@ -48,11 +49,14 @@ class PrestarServicio extends CI_Controller {
 
     }
 
-    function newEditPersona($opcion = "") {        
+    function newEditPersona($opcion = "") {
         $data['registros'] = $this->input->post();
         $datos['exito'] = $this->Model_Persona->insertEditPersona($data['registros'], $opcion);        
         if ($datos['exito']) {
-            echo "enviarPeticionAjax('" . base_url('index.php') . "/operativo/prestarServicio/indexServicio', 'dtsServicio');";
+            echo '<script>$("#dtsServicio").html("<button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"enviarPeticionAjax(\'' . base_url('index.php') . '/operativo/prestarServicio/index\');\"><strong>Cancelar</strong></button>");</script>';
+            $data['tiposDoc'] = $this->Model_Persona->tiposDocumento();
+            $this->load->view('prestarServicio/index', $data);
+//            echo "<script>enviarPeticionAjax('" . base_url('index.php') . "/operativo/prestarServicio/indexServicio', 'dtsServicio');</script>";            
         }
     }
 

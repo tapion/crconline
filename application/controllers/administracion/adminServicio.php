@@ -48,14 +48,27 @@ class AdminServicio extends CI_Controller {
     }
 
     public function createServicio() {
-        $registro = $this->input->post();
-        $idServicio = $this->Model_Admin->insertServicio($registro);
-        $maxSubExa = $this->Model_Admin->maxSubExamen();
-        foreach ($idServicio as $dtsServicio) {
-            $idSer = $dtsServicio->idservicio;
+        try {
+            $registro = $this->input->post();
+            $idServicio = $this->Model_Admin->insertServicio($registro);
+            if (!$idServicio)
+                throw new Exception("Error al guardar servicio");
+
+            $maxSubExa = $this->Model_Admin->maxSubExamen();
+            foreach ($idServicio as $dtsServicio) {
+                $idSer = $dtsServicio->idservicio;
+            }
+            $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $idSer, $maxSubExa);
+            if ($datos['exito']) {
+                $this->consultarAllServi($datos);
+            } else {
+                throw new Exception("Error al guardar examenes");
+            }
+        } catch (Exception $exc) {
+            $respuesta = array();
+            $respuesta['ok'] = $exc->getMessage();
+            echo json_encode($respuesta);
         }
-        $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $idSer, $maxSubExa);
-        $this->consultarAllServi($datos);
     }
 
     public function consultarAllServi($exito = "") {
@@ -66,19 +79,21 @@ class AdminServicio extends CI_Controller {
 
     public function editServicio() {
         try {
+            $this->Model_Admin->startTrans();
             $registro = $this->input->post();
             $datos['exito'] = $this->Model_Admin->deleteSubExamenServicio($registro['idServicio']);
             if ($datos['exito']) {
                 $maxSubExa = $this->Model_Admin->maxSubExamen();
-                $this->Model_Admin->editServicio($registro);
-                $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $registro['idServicio'], $maxSubExa);
-                if ($datos['exito']) {
-                    $this->consultarAllServi($datos);
-                } else {
-                    throw new Exception("Problemas insertando");
-                }
+                if (!$this->Model_Admin->editServicio($registro))
+                    throw new Exception("Error al guardar servicio");
+
+                if (!$this->Model_Admin->insertServicioSubExa($registro, $registro['idServicio'], $maxSubExa))
+                    throw new Exception("Error al guardar examenes");
+
+                $this->consultarAllServi($datos);
+                $this->Model_Admin->completeTrans();
             } else {
-                throw new Exception("Problemas ");
+                throw new Exception("Error al modificar los examenes");
             }
         } catch (Exception $exc) {
             $respuesta = array();

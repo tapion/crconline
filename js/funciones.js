@@ -68,7 +68,7 @@ function enviarPeticionAjaxJSON(urlAction, contenedor, dtsFormulario, arraysubca
         success: function(respuesta) {
             try {
                 var objJSON = jQuery.parseJSON(respuesta);
-                mensaje('Se ha presentado el siguiente error:' + objJSON.ok + '!!');
+                mensaje(objJSON.ok + ' !!');
             } catch (ex) {
                 $('#' + contenedor).html(respuesta);
                 if (typeof arraysubcargas != "undefined") {

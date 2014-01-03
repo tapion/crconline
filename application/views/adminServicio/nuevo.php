@@ -247,11 +247,11 @@ if (isset($registros) && !empty($registros)) {
                     <?php
                 }
                 ?>
-                <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjax('<?= site_url('/administracion/adminServicio/index') ?>', 'divTabs');"><strong>Cancelar</strong></button>
+                <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjaxJSON('<?= site_url('/administracion/adminServicio/index') ?>', 'divTabs');"><strong>Cancelar</strong></button>
                 <?php
             } else {
                 ?>
-                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= site_url('/administracion/adminServicio/createServicio')  ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
+                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjaxJSON('<?= site_url('/administracion/adminServicio/createServicio')  ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
                 <?php
             }
             ?>

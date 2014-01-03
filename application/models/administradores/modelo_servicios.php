@@ -14,6 +14,14 @@ class Modelo_Servicios extends CI_Model {
         parent::__construct();
     }
 
+    public function startTrans() {
+        $this->db->trans_start();
+    }
+
+    public function completeTrans() {
+        $this->db->trans_complete();
+    }
+
     function allTipoExamen() {
         $this->db->select('tipo_examen_id, tipo_examen_nombre');
         $this->db->from('tipos_examenes');
@@ -65,20 +73,26 @@ class Modelo_Servicios extends CI_Model {
     }
 
     function insertServicio($parametros) {
-        $data = array('servicio_nombre' => isset($parametros['txtServicio']) ? $parametros['txtServicio'] : NULL,
-            'servicio_valor' => isset($parametros['txtVlrServicio']) ? $parametros['txtVlrServicio'] : NULL,
-            'servicio_edad_minima' => isset($parametros['edadMin']) ? $parametros['edadMin'] : NULL,
-            'servicio_edad_maxima' => isset($parametros['edadMax']) ? $parametros['edadMax'] : NULL,
-            'servicio_estado' => isset($parametros['estado']) ? $parametros['estado'] : NULL,
-            'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
-            'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
-            'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL
-        );
+        try {
+            $data = array('servicio_nombre' => isset($parametros['txtServicio']) ? $parametros['txtServicio'] : NULL,
+                'servicio_valor' => isset($parametros['txtVlrServicio']) ? $parametros['txtVlrServicio'] : NULL,
+                'servicio_edad_minima' => isset($parametros['edadMin']) ? $parametros['edadMin'] : NULL,
+                'servicio_edad_maxima' => isset($parametros['edadMax']) ? $parametros['edadMax'] : NULL,
+                'servicio_estado' => isset($parametros['estado']) ? $parametros['estado'] : NULL,
+                'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
+                'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
+                'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL
+            );
 
-        $this->db->insert('servicios', $data);
-        $this->db->select("currval('servicios_servicio_id_seq') as idservicio");
-        $query = $this->db->get();
-        return $query->result();
+            if (!$this->db->insert('servicios', $data))
+                throw new Exception();
+
+            $this->db->select("currval('servicios_servicio_id_seq') as idservicio");
+            $query = $this->db->get();
+            return $query->result();
+        } catch (Exception $exc) {
+            return FALSE;
+        }
     }
 
     function insertServicioSubExa($parametros, $idserv, $maxSub) {
@@ -88,7 +102,7 @@ class Modelo_Servicios extends CI_Model {
                     $dts = array('servicio_subexamen_servicio_id' => $idserv,
                         'servicio_subexamen_subexamen_id' => $i
                     );
-                    if (!$this->db->insert('servicios_subexamenes', $dts))
+                    if (!$this->db->insert('servicios_subexamenes1', $dts))
                         throw new Exception();
                 }
             }
@@ -129,18 +143,25 @@ class Modelo_Servicios extends CI_Model {
     }
 
     function editServicio($parametros) {
-        $data = array('servicio_nombre' => isset($parametros['txtServicio']) ? $parametros['txtServicio'] : NULL,
-            'servicio_valor' => isset($parametros['txtVlrServicio']) ? $parametros['txtVlrServicio'] : NULL,
-            'servicio_edad_minima' => isset($parametros['edadMin']) ? $parametros['edadMin'] : NULL,
-            'servicio_edad_maxima' => isset($parametros['edadMax']) ? $parametros['edadMax'] : NULL,
-            'servicio_estado' => isset($parametros['estado']) ? $parametros['estado'] : NULL,
-            'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
-            'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
-            'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL
-        );
+        try {
+            $data = array('servicio_nombre' => isset($parametros['txtServicio']) ? $parametros['txtServicio'] : NULL,
+                'servicio_valor' => isset($parametros['txtVlrServicio']) ? $parametros['txtVlrServicio'] : NULL,
+                'servicio_edad_minima' => isset($parametros['edadMin']) ? $parametros['edadMin'] : NULL,
+                'servicio_edad_maxima' => isset($parametros['edadMax']) ? $parametros['edadMax'] : NULL,
+                'servicio_estado' => isset($parametros['estado']) ? $parametros['estado'] : NULL,
+                'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
+                'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
+                'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL
+            );
 
-        $this->db->where('servicio_id', $parametros['idServicio']);
-        $this->db->update('servicios', $data);
+            $this->db->where('servicio_id', $parametros['idServicio']);
+            if (!$this->db->update('servicios', $data))
+                throw new Exception();
+
+            return TRUE;
+        } catch (Exception $exc) {
+            return FALSE;
+        }
     }
 
 }

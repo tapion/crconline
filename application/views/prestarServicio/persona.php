@@ -171,12 +171,12 @@ if (isset($dtsPersonales) && !empty($dtsPersonales)) {
                 </table>  
             </div>
         </div>
-        <div class="form-actions" style="padding-top: 20px">   
+        <div id="buttonsAction" class="form-actions" style="padding-top: 20px">   
             <?php
             if (isset($opcion) && !empty($opcion)) {
                 if ($opcion == 'editPersona') {
                     ?>
-                    <button id="pruebass" class="btn btn-sm btn-primary" type="button" onclick="enviarDts();"><strong>Editar</strong></button>
+                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarDts();"><strong>Editar</strong></button>
                     <?php
                 }
             } else {
@@ -206,7 +206,7 @@ if (isset($dtsPersonales) && !empty($dtsPersonales)) {
                 });
 
                 function  enviarDts() {
-                    enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/newEditPersona/' . $opcion ?>', 'divTabs', 'formPersonas');
+                    enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/newEditPersona/' . $opcion ?>', 'divTabs', 'formPersonas', new Array('<?= $urlBase . '/operativo/prestarServicio/indexServicio' ?>', 'dtsServicio', 'formPersonas'));
                 }
 </script>
 <?= form_close(); ?>

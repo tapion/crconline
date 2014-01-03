@@ -1,10 +1,15 @@
 /*
  * Funcion para enviar una peticion ajax
  * @param {string} urlAction Url de la peticion
+ * argumentos[1] = id del contenedor de la respuesta type (string) default divContenido
+ * argumentos[2] = id del form para validacion de campos con parsley type (string)
+ * argumentos[3] = subcargas type(array) pos 0 => urlAction(string) , pos 1 => id del contenedor de la respuesta type(string) , pos 2 => id form type(string)
  */
 function enviarPeticionAjax(urlAction) {
     var contenedor;
     var dtsFormulario;
+    var param3 = enviarPeticionAjax.arguments[3];
+
     if (enviarPeticionAjax.arguments.length > 1) {
         contenedor = enviarPeticionAjax.arguments[1];
         if (typeof enviarPeticionAjax.arguments[2] != "undefined") {
@@ -27,14 +32,56 @@ function enviarPeticionAjax(urlAction) {
         dataType: 'html',
         success: function(respuesta) {
             $('#' + contenedor).html(respuesta);
+            if (typeof param3 != "undefined") {
+                enviarPeticionAjax(param3[0], param3[1], param3[2]);
+            }
             divProcesando(false);
         },
         error: function() {
-            mensaje('Se ha presentado un error al llamar Ajax!...');
+            mensaje('Se ha presentado un error en el proceso!!');
             divProcesando(false);
         }
     });
+}
 
+
+function enviarPeticionAjaxJSON(urlAction, contenedor, dtsFormulario, arraysubcargas) {
+    if (enviarPeticionAjaxJSON.arguments.length > 1) {
+        if (typeof dtsFormulario != "undefined") {
+            if (!$("#" + dtsFormulario).parsley('validate')) {
+                return;
+            }
+            dtsFormulario = $('#' + dtsFormulario).serialize();
+        }
+    } else {
+        contenedor = 'divContenido';
+        dtsFormulario = "";
+    }
+
+    divProcesando(true);
+
+    $.ajax({
+        url: urlAction,
+        type: 'POST',
+        data: dtsFormulario,
+        dataType: 'HTML',
+        success: function(respuesta) {
+            try {
+                var objJSON = jQuery.parseJSON(respuesta);
+                mensaje('Se ha presentado el siguiente error:' + objJSON.ok + '!!');
+            } catch (ex) {
+                $('#' + contenedor).html(respuesta);
+                if (typeof arraysubcargas != "undefined") {
+                    enviarPeticionAjaxJSON(param3[0], param3[1], param3[2]);
+                }
+            }
+            divProcesando(false);
+        },
+        error: function() {
+            mensaje('Se ha presentado un error en el proceso!!');
+            divProcesando(false);
+        }
+    });
 }
 
 /*
@@ -123,4 +170,3 @@ function deshabilitarcampos(contenedor, form, array) {
         }
     }
 }
-

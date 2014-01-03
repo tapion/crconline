@@ -82,22 +82,28 @@ class Modelo_Servicios extends CI_Model {
     }
 
     function insertServicioSubExa($parametros, $idserv, $maxSub) {
-        for ($i = 1; $i <= $maxSub; $i++) {
-            if (isset($parametros[$i]) && !empty($parametros[$i])) {
-                $dts = array('servicio_subexamen_servicio_id' => $idserv,
-                    'servicio_subexamen_subexamen_id' => $i
-                );
-                $this->db->insert('servicios_subexamenes', $dts);
+        try {
+            for ($i = 1; $i <= $maxSub; $i++) {
+                if (isset($parametros[$i]) && !empty($parametros[$i])) {
+                    $dts = array('servicio_subexamen_servicio_id' => $idserv,
+                        'servicio_subexamen_subexamen_id' => $i
+                    );
+                    if (!$this->db->insert('servicios_subexamenes', $dts))
+                        throw new Exception();
+                }
             }
+            return TRUE;
+        } catch (Exception $exc) {
+            return FALSE;
         }
-        return true;
     }
 
-    function allServicios($sede = "", $empresa = "", $idServi = "") {
+    function allServicios($sede = "", $empresa = "", $idServi = "", $idTipServ = "") {
         $comSql = !empty($sede) ? "AND sedes.sede_id = $sede" : '';
+        $comSqltipSer = !empty($idTipServ) ? "AND tipos_servicios.tipo_servicio_id = $idTipServ" : '';
         $this->db->select("servicios.*, tipos_servicios.tipo_servicio_nombre, sedes.sede_nombre, CASE servicios.servicio_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as estado", FALSE);
         $this->db->from('servicios');
-        $this->db->join('tipos_servicios', 'tipos_servicios.tipo_servicio_id = servicios.servicio_tipo_servicio_id');
+        $this->db->join('tipos_servicios', 'tipos_servicios.tipo_servicio_id = servicios.servicio_tipo_servicio_id ' . $comSqltipSer);
         $this->db->join('sedes', 'sedes.sede_id = servicios.servicio_sede_id ' . $comSql);
         if (isset($idServi) && !empty($idServi)) {
             $this->db->where('servicios.servicio_id', $idServi);
@@ -111,6 +117,7 @@ class Modelo_Servicios extends CI_Model {
     function deleteSubExamenServicio($idServicio) {
         $this->db->where('servicio_subexamen_servicio_id', $idServicio);
         $this->db->delete('servicios_subexamenes');
+        return TRUE;
     }
 
     function allSubExamenServicio($idServicio) {

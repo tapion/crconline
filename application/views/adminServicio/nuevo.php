@@ -1,4 +1,3 @@
-<?php $urlBase = base_url('index.php'); ?>
 <?= form_open('', array('class' => 'form-search', 'id' => 'formServicio')); ?>
 <?php
 $seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $selNomSer = $script = NUll;
@@ -244,15 +243,15 @@ if (isset($registros) && !empty($registros)) {
             if (isset($opcion) && !empty($opcion)) {
                 if ($opcion == 'editServicio') {
                     ?>
-                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/' . $opcion ?>', 'divTabs', 'formServicio');"><strong>Editar</strong></button>
+                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjaxJSON('<?= site_url('/administracion/adminServicio/'.$opcion)  ?>', 'divTabs', 'formServicio');"><strong>Editar</strong></button>
                     <?php
                 }
                 ?>
-                <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/index' ?>', 'divTabs');"><strong>Cancelar</strong></button>
+                <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjax('<?= site_url('/administracion/adminServicio/index') ?>', 'divTabs');"><strong>Cancelar</strong></button>
                 <?php
             } else {
                 ?>
-                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/administracion/adminServicio/createServicio' ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
+                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= site_url('/administracion/adminServicio/createServicio')  ?>', 'divTabs', 'formServicio');"><strong>Ingresar</strong></button>
                 <?php
             }
             ?>

@@ -27,14 +27,22 @@ class PrestarServicio extends CI_Controller {
         $datas['numDoc'] = $numDoc;
         $this->load->view('prestarServicio/applet', $datas);
     }
-    
+
     public function indexServicio() {        
-        $this->load->view('prestarServicio/solicitudServicio');
+        echo '<pre>';
+        print_r($_POST);
+        echo '</pre>';
+        $this->load->model('administradores/modelo_servicios','Model_Servicios');
+        # Tipos De servicio
+        $_POST['tipoServicios'] = $this->Model_Servicios->allTipoServicios($this->empresaUsuario);
+        $_POST['tipoServicios'] = $this->Model_Servicios->allServicios($this->sedeUsuario, $this->empresaUsuario, NULL, $idTipServ = "");
+        
+        echo '<script>$("#buttonsAction").html("");</script>';
+        $this->load->view('prestarServicio/solicitudServicio',$_POST);
     }
 
     public function index() {
         $data['tiposDoc'] = $this->Model_Persona->tiposDocumento();
-//        echo "<script>enviarPeticionAjax('" . base_url('index.php') . "/operativo/prestarServicio/indexServicio', 'dtsServicio');</script>";
         $this->load->view('prestarServicio/index', $data);
     }
 
@@ -46,18 +54,11 @@ class PrestarServicio extends CI_Controller {
         }
         echo '<script>$("#groupBotones").html("<button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"enviarPeticionAjax(\'' . base_url('index.php') . '/operativo/prestarServicio/index\');\"><strong>Cancelar</strong></button>");</script>';
         $this->load->view('prestarServicio/persona', $data);
-
     }
 
     function newEditPersona($opcion = "") {
         $data['registros'] = $this->input->post();
-        $datos['exito'] = $this->Model_Persona->insertEditPersona($data['registros'], $opcion);        
-        if ($datos['exito']) {
-            echo '<script>$("#dtsServicio").html("<button class=\"btn btn-sm btn-danger\" type=\"button\" onclick=\"enviarPeticionAjax(\'' . base_url('index.php') . '/operativo/prestarServicio/index\');\"><strong>Cancelar</strong></button>");</script>';
-            $data['tiposDoc'] = $this->Model_Persona->tiposDocumento();
-            $this->load->view('prestarServicio/index', $data);
-//            echo "<script>enviarPeticionAjax('" . base_url('index.php') . "/operativo/prestarServicio/indexServicio', 'dtsServicio');</script>";            
-        }
+        $this->Model_Persona->insertEditPersona($data['registros'], $opcion);
     }
 
 }

@@ -13,7 +13,7 @@ class AdminServicio extends CI_Controller {
     // Constructor de la clase
     function __construct() {
         parent::__construct();
-        $this->load->model('administradores/modelo_servicios','Model_Admin');
+        $this->load->model('administradores/modelo_servicios', 'Model_Admin');
         $this->dtssession = $this->session->userdata('logged_user');
         foreach ($this->dtssession as $dtsSession) {
             $this->sedeUsuario = $dtsSession->usuario_sede_id;
@@ -65,12 +65,26 @@ class AdminServicio extends CI_Controller {
     }
 
     public function editServicio() {
-        $registro = $this->input->post();
-        $this->Model_Admin->deleteSubExamenServicio($registro['idServicio']);
-        $maxSubExa = $this->Model_Admin->maxSubExamen();
-        $this->Model_Admin->editServicio($registro);
-        $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $registro['idServicio'], $maxSubExa);
-        $this->consultarAllServi($datos);
+        try {
+            $registro = $this->input->post();
+            $datos['exito'] = $this->Model_Admin->deleteSubExamenServicio($registro['idServicio']);
+            if ($datos['exito']) {
+                $maxSubExa = $this->Model_Admin->maxSubExamen();
+                $this->Model_Admin->editServicio($registro);
+                $datos['exito'] = $this->Model_Admin->insertServicioSubExa($registro, $registro['idServicio'], $maxSubExa);
+                if ($datos['exito']) {
+                    $this->consultarAllServi($datos);
+                } else {
+                    throw new Exception("Problemas insertando");
+                }
+            } else {
+                throw new Exception("Problemas ");
+            }
+        } catch (Exception $exc) {
+            $respuesta = array();
+            $respuesta['ok'] = $exc->getMessage();
+            echo json_encode($respuesta);
+        }
     }
 
 }

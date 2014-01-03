@@ -86,5 +86,17 @@ class AdminServicio extends CI_Controller {
             echo json_encode($respuesta);
         }
     }
+    public function filtros(){
+        $params['table'] = 'tbmpais';
+        $params['fields'] = array('mpais_id as sede_nombre'
+            , 'mpais_nombre as servicio_nombre'
+            , 'mpais_capital as servicio_valor'
+            , 'mpais_province as servicio_valor_certificado'
+            , 'mpais_area as tipo_servicio_nombre', 'mpais_poblacion as estado');
+        $params['connection'] = $this->db->conn_id;
+        $this->load->library('dynamicdatatable',$params);
+        echo $this->dynamicdatatable->filtro();
+    }
+
 
 }

@@ -113,6 +113,32 @@ class Modelo_Servicios extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    function allServicios2($sede = "", $empresa = "", $idServi = "", $idTipServ = "") {
+        $this->multi = $this->load->database('multi', TRUE);
+        $sql = 'select mpais_id as sede_nombre 
+                ,mpais_id as servicio_id 
+                ,mpais_nombre as servicio_nombre
+                ,mpais_capital as servicio_valor
+                ,mpais_province as servicio_valor_certificado
+                ,mpais_area as tipo_servicio_nombre
+                ,mpais_poblacion as estado
+                from tbmpais';
+        
+        
+//        $comSql = !empty($sede) ? "AND sedes.sede_id = $sede" : '';
+//        $comSqltipSer = !empty($idTipServ) ? "AND tipos_servicios.tipo_servicio_id = $idTipServ" : '';
+//        $this->db->select("servicios.*, tipos_servicios.tipo_servicio_nombre, sedes.sede_nombre, CASE servicios.servicio_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as estado", FALSE);
+//        $this->db->from('servicios');
+//        $this->db->join('tipos_servicios', 'tipos_servicios.tipo_servicio_id = servicios.servicio_tipo_servicio_id ' . $comSqltipSer);
+//        $this->db->join('sedes', 'sedes.sede_id = servicios.servicio_sede_id ' . $comSql);
+//        if (isset($idServi) && !empty($idServi)) {
+//            $this->db->where('servicios.servicio_id', $idServi);
+//        } elseif (isset($empresa) && !empty($empresa)) {
+//            $this->db->join('empresas', 'empresas.empresa_id = sedes.sede_empresa_id');
+//        }
+        $query = $this->multi->query($sql);
+        return $query->result();
+    }
 
     function deleteSubExamenServicio($idServicio) {
         $this->db->where('servicio_subexamen_servicio_id', $idServicio);

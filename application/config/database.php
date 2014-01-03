@@ -50,12 +50,12 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'postgres';
-$db['default']['password'] = '123456789';
+$db['default']['password'] = '';
 $db['default']['database'] = 'crc_online';
 $db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = FALSE;
+$db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
 $db['default']['char_set'] = 'utf8';
@@ -63,6 +63,23 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
+
+$db['multi']['hostname'] = 'bdmvpru.decameron.com';
+$db['multi']['username'] = 'miguel_vargas';
+$db['multi']['password'] = 'porvenir2';
+$db['multi']['database'] = 'multivacaciones_dllo';
+$db['multi']['dbdriver'] = 'postgre';
+$db['multi']['dbprefix'] = '';
+$db['multi']['pconnect'] = TRUE;
+$db['multi']['db_debug'] = TRUE;
+$db['multi']['cache_on'] = FALSE;
+$db['multi']['cachedir'] = '';
+$db['multi']['char_set'] = 'utf8';
+$db['multi']['dbcollat'] = 'utf8_general_ci';
+$db['multi']['swap_pre'] = '';
+$db['multi']['autoinit'] = TRUE;
+$db['multi']['stricton'] = FALSE;
 
 
 /* End of file database.php */

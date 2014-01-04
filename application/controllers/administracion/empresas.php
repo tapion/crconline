@@ -2,43 +2,20 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+
 class Empresas extends CI_Controller {
 
-    // Constructor de la clase
     function __construct() {
         parent::__construct();
         $this->load->model('administradores/modelo_empresas');
-//        $this->dtssession = $this->session->userdata('logged_user');
-//        foreach ($this->dtssession as $dtsSession) {
-//            $this->sedeUsuario = $dtsSession->usuario_sede_id;
-//            $this->empresaUsuario = $dtsSession->usuario_empresa_id;
-//        }
     }
 
     public function index() {
-        $data['companies'] = $this->modelo_empresas->getCompany();
-        $this->load->view('adminEmpresas/index',$data);
+        $this->load->view('adminEmpresas/index');
     }
 
     public function create() {
-//        if(isset($id) && !empty($id) && isset($opcion) && !empty($opcion)) {
-//            $data['opcion'] = $opcion;
-//            # Consultar todo lo relacionado a la sede 
-//            $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
-//        }
-        # Tipos De servicio
-//        $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
-//        # Consulta sedes por empresa
-//        $data['sedes'] = $this->Model_Admin->filterSedeEmpresa($this->sedeUsuario, $this->empresaUsuario);
-//        # Tipos  Examen con su respectivo subExamen asociado
-//        $matrizFinal = array();
-//        $data['tipoExamen'] = $this->Model_Admin->allTipoExamen();
-//        foreach ($data['tipoExamen'] as $tipoExamen) {
-//            $matrizFinal[$tipoExamen->tipo_examen_id] = $this->Model_Admin->filterTipoSubexamen($tipoExamen->tipo_examen_id);
-//        }
-//        $data['subExamen'] = $matrizFinal;
         $this->load->view('adminEmpresas/nuevo');
-//        $this->load->view('adminServicio/nuevo', $data);
     }
 
     public function createServicio() {
@@ -56,13 +33,34 @@ class Empresas extends CI_Controller {
     }
 
     public function getAllCompany() {
-//        $datas['exito'] = $exito;
-        $datas['filtros'] = $this->modelo_empresas->getCompany();
-        $this->load->view('adminServicio/consultar', $datas);
+        $this->load->view('adminServicio/consultar');
     }
-    
-    public function editar($empresa_id){
+
+    public function editar($empresa_id) {
         
     }
 
+    public function filtros() {
+        $params['table'] = 'empresas emp
+                inner join usuarios usr on usr.usuario_id = emp.usuario_id
+                left join usuarios usr2 on usr2.usuario_id = emp.usuario_id_edito
+                inner join ciudades ciu on ciu.ciudad_id = emp.ciudad_id
+                inner join paises pai on pai.pais_id = ciu.pais_id ';
+        $params['fields'] = array('emp.empresa_nombre'
+                    ,'emp.empresa_nit'
+                    ,'emp.empresa_direccion'
+                    ,'emp.empresa_telefono1 || \' \' || emp.empresa_telefono2'
+                    ,'case when emp.empresa_estado then \'Activo\' else \'Inactivo\' end as estado'
+                    ,'pai.pais_nombre'
+                    ,'ciu.ciudad_nombre'
+                    ,'usr.usuario_login'
+                    ,'emp.empresa_fecha_creacion'
+                    ,'usr2.usuario_login'
+                    ,'emp.empresa_fecha_edito'
+                    ,'\'<button title="Editar" class="glyphicon glyphicon-edit btn btn-sm btn-info" onclick="enviarPeticionAjax(\'\''.site_url('administracion/empresas/editar/').'/\' || emp.empresa_id || \'\'\', \'\'divTabs\'\');"></button>\''
+            );
+        $params['connection'] = $this->db->conn_id;
+        $this->load->library('dynamicdatatable', $params);
+        return $this->dynamicdatatable->filtro();
+    }
 }

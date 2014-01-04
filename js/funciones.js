@@ -117,13 +117,16 @@ function formatoTablaResultados() {
 
 }
 function formatoTablaResultados2(url) {
-    console.log(url);
+//    console.log(url);
     $('.datatable').dataTable({
         "sPaginationType": "bs_normal",
         "bProcessing": true,
         "bServerSide": true,
         "sAjaxSource": url,
-        "sServerMethod": 'POST'
+        "sServerMethod": 'POST',
+        "aoColumnDefs": [
+            {"bSearchable": false, "aTargets": [4,8,10,11]}
+        ]
     });
     $('.datatable').each(function() {
         var datatable = $(this);

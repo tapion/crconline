@@ -15,7 +15,7 @@ class dynamicdatatable {
             $this->table = $params['table'];
             $this->fields = $params['fields'];
             $this->connection = $params['connection'];
-            $this->CI =& get_instance();
+            $this->CI = & get_instance();
             $this->CI->load->helper('form');
         } else {
             exit('Parametros incorrectos');
@@ -46,7 +46,9 @@ class dynamicdatatable {
         if ($this->CI->input->post('sSearch') && $this->CI->input->post('sSearch') != "") {
             $sWhere = "WHERE (";
             for ($i = 0; $i < count($this->fields); $i++) {
-                $sWhere .= $this->fields[$i] . " LIKE '%" . pg_escape_string($this->CI->input->post('sSearch')) . "%' OR ";
+                if ($this->CI->input->post('bSearchable_' . $i) && $this->CI->input->post('bSearchable_' . $i) == "true") {
+                    $sWhere .= $this->fields[$i] . " LIKE '%" . pg_escape_string($this->CI->input->post('sSearch')) . "%' OR ";
+                }
             }
             $sWhere = substr_replace($sWhere, "", -3);
             $sWhere .= ')';
@@ -64,41 +66,28 @@ class dynamicdatatable {
         }
 
         $sQuery = 'SELECT COUNT(*) OVER() as total_registros, ' . implode(",", $this->fields) . ' FROM ' . $this->table . ' ' . $sWhere . $sOrder . $sLimit;
-        
-        $rResult = pg_query($this->connection,$sQuery);
-        $iFilteredTotal = $aResultFilterTotal[0];
-
-        $sQuery = "
-		SELECT COUNT(*)
-		FROM   $this->table
-	";
-        $rResultTotal = mysql_query($sQuery, $gaSql['link']) or die(mysql_error());
-        $aResultTotal = mysql_fetch_array($rResultTotal);
-        $iTotal = $aResultTotal[0];
-
-
+//        exit($sQuery);
+        $rResult = pg_query($this->connection, $sQuery);
         $output = array(
             "sEcho" => intval($this->CI->input->post('sEcho')),
-            "iTotalRecords" => $iTotal,
-            "iTotalDisplayRecords" => $iFilteredTotal,
+            "iTotalRecords" => 0,
+            "iTotalDisplayRecords" => 0,
             "aaData" => array()
         );
 
-        while ($aRow = mysql_fetch_array($rResult)) {
+        $contador = $iTotal = 0;
+        while ($aRow = pg_fetch_array($rResult, NULL, PGSQL_NUM)) {
             $row = array();
-            for ($i = 0; $i < count($this->fields); $i++) {
-                if ($this->fields[$i] == "version") {
-                    $row[] = ($aRow[$this->fields[$i]] == "0") ? '-' : $aRow[$this->fields[$i]];
-                } else if ($this->fields[$i] != ' ') {
-                    $row[] = $aRow[$this->fields[$i]];
-                }
+            for ($i = 1; $i < count($this->fields) + 1; $i++) {
+                $row[] = $aRow[$i];
             }
             $output['aaData'][] = $row;
+            $iTotal = $aRow[0];
+            $contador ++;
         }
-
+        $output['iTotalRecords'] = $iTotal;
+        $output['iTotalDisplayRecords'] = $contador;
         echo json_encode($output);
     }
 
 }
-
-/* End of file Someclass.php */

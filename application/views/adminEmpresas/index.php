@@ -21,15 +21,10 @@
                     </div>
                     <div class="col-sm-10">
                         <div id="divTabs" class="tab-content" >
-                            <?php $this->load->view('adminEmpresas/consultar', array('companies' => $companies)); ?>
+                            <?php $this->load->view('adminEmpresas/consultar'); ?>
                         </div>
                     </div>
                 </div>
-                <!--                        <div id="priservicio" class="col-md-2" style="padding-left: -15px">
-                                            
-                                        </div>-->
-                <!-- div para mostrar los contenidos de los tabs --> 
-                <!--</div>-->
             </div>
         </div>
     </div>

@@ -28,17 +28,17 @@ class PrestarServicio extends CI_Controller {
         $this->load->view('prestarServicio/applet', $datas);
     }
 
-    public function indexServicio() {        
+    public function indexServicio() {
         echo '<pre>';
         print_r($_POST);
         echo '</pre>';
-        $this->load->model('administradores/modelo_servicios','Model_Servicios');
+        $this->load->model('administradores/modelo_servicios', 'Model_Servicios');
         # Tipos De servicio
         $_POST['tipoServicios'] = $this->Model_Servicios->allTipoServicios($this->empresaUsuario);
-        $_POST['tipoServicios'] = $this->Model_Servicios->allServicios($this->sedeUsuario, $this->empresaUsuario, NULL, $idTipServ = "");
-        
+        $_POST['servicios'] = $this->Model_Servicios->allServicios($this->sedeUsuario, $this->empresaUsuario, NULL, $idTipServ = "");
+
         echo '<script>$("#buttonsAction").html("");</script>';
-        $this->load->view('prestarServicio/solicitudServicio',$_POST);
+        $this->load->view('prestarServicio/solicitudServicio', $_POST);
     }
 
     public function index() {
@@ -57,8 +57,18 @@ class PrestarServicio extends CI_Controller {
     }
 
     function newEditPersona($opcion = "") {
-        $data['registros'] = $this->input->post();
-        $this->Model_Persona->insertEditPersona($data['registros'], $opcion);
+        $this->load->model('administradores/modelo_servicios', 'Model_Admin');
+        try {
+            $this->Model_Admin->startTrans();
+            $data['registros'] = $this->input->post();
+            if (!$this->Model_Persona->insertEditPersona($data['registros'], $opcion))
+                throw new Exception("Error ingresando o modificando cliente!");
+            $this->Model_Admin->completeTrans();
+        } catch (Exception $exc) {
+            $respuesta = array();
+            $respuesta['ok'] = $exc->getMessage();
+            echo json_encode($respuesta);
+        }
     }
 
 }

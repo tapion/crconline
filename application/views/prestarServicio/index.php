@@ -5,47 +5,39 @@
     </div>
     <div class="degradeContent container">
         <div class="row">
-            <div class="col-md-3" id="dtsBasicosPersonas">
+            <div class="col-md-2" id="dtsBasicosPersonas">
                 <form id="formConsulCliente">
-                    <table cellpadding="7">
-                        <tr>
-                            <td align="right" >
-                                Tipo Documento
-                            </td>
-                            <td align="left">
-                                <?php
-                                $opciones = array('' => 'Seleccione..');
-                                foreach ($tiposDoc as $dtsTipDoc) {
-                                    $opciones[$dtsTipDoc->tipo_doc_id] = $dtsTipDoc->tipo_doc_nombre;
-                                }
+                    <div class="form-group">
+                        <label>Tipo Documento</label>
+                        <div>
+                            <?php
+                            $opciones = array('' => 'Seleccione..');
+                            foreach ($tiposDoc as $dtsTipDoc) {
+                                $opciones[$dtsTipDoc->tipo_doc_id] = $dtsTipDoc->tipo_doc_nombre;
+                            }
 
-                                $js = 'class="chzn-select" id="tipoDocumento" onChange="" parsley-required="tipo documento" parsley-error-container="div#errortipDoc"';
-                                echo form_dropdown('tipoDocumento', $opciones, NULL, $js);
-                                ?>                              
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="right" >
-                                N&uacute;mero Documento
-                            </td>
-                            <td align="left">
-                                <input type="text" name="numeroDocumento" id="numeroDocumento" class="form-control" placeholder="N&uacute;mero documento" parsley-required="n&uacute;mero documento" parsley-error-container="div#errortipDoc" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" colspan="2">
-                                <div id="groupBotones">
-                                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/consultPersona' ?>', 'dtsPersonas', 'formConsulCliente');
-                                            deshabilitarcampos('dtsBasicosPersonas', 'formConsulCliente', new Array('input', 'select'));"><strong>Consultar</strong></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                            $js = 'class="chzn-select" style="width: 90%" id="tipoDocumento" onChange="" parsley-required="tipo documento" parsley-error-container="div#errortipDoc"';
+                            echo form_dropdown('tipoDocumento', $opciones, NULL, $js);
+                            ?>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>N&uacute;mero Documento</label>
+                        <div>
+                            <input type="text" name="numeroDocumento" id="numeroDocumento" class="form-control" placeholder="N&uacute;mero documento" parsley-required="n&uacute;mero documento" parsley-error-container="div#errortipDoc" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="groupBotones">
+                            <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjax('<?= $urlBase . '/operativo/prestarServicio/consultPersona' ?>', 'dtsPersonas', 'formConsulCliente');
+                                    deshabilitarcampos('dtsBasicosPersonas', 'formConsulCliente', new Array('input', 'select'));"><strong>Consultar</strong></button>
+                        </div>
+                    </div>                    
                     <div id="errortipDoc" align="justify"></div>
                 </form>
                 <div id="dtsApplet"></div>
             </div>
-            <div class="tab-content container col-md-9">
+            <div class="tab-content container col-md-10">
                 <div id="dtsPersonas" ></div>
                 <div id="dtsServicio" ></div>
             </div>            

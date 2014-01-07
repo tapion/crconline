@@ -46,6 +46,7 @@ function enviarPeticionAjax(urlAction) {
 
 
 function enviarPeticionAjaxJSON(urlAction, contenedor, dtsFormulario, arraysubcargas) {
+    var param3 = arraysubcargas;
     if (enviarPeticionAjaxJSON.arguments.length > 1) {
         if (typeof dtsFormulario != "undefined") {
             if (!$("#" + dtsFormulario).parsley('validate')) {

@@ -29,13 +29,14 @@ class PrestarServicio extends CI_Controller {
     }
 
     public function indexServicio() {
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($_POST);
+//        echo '</pre>';
         $this->load->model('administradores/modelo_servicios', 'Model_Servicios');
         # Tipos De servicio
         $_POST['tipoServicios'] = $this->Model_Servicios->allTipoServicios($this->empresaUsuario);
-        $_POST['servicios'] = $this->Model_Servicios->allServicios($this->sedeUsuario, $this->empresaUsuario, NULL, $idTipServ = "");
+        $_POST['tipo'] = $this->Model_Servicios->allTipos();
+        $_POST['servicios'] = $this->Model_Servicios->allServicios($this->sedeUsuario, $this->empresaUsuario);
 
         echo '<script>$("#buttonsAction").html("");</script>';
         $this->load->view('prestarServicio/solicitudServicio', $_POST);

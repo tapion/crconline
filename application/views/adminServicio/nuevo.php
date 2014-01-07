@@ -1,6 +1,6 @@
 <?= form_open('', array('class' => 'form-search', 'id' => 'formServicio')); ?>
 <?php
-$seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $selNomSer = $script = NUll;
+$seltipSer = $selSede = $selEdadMin = $selEdadMax = $selValSer = $selValCer = $selNomSer = $script = $seltip = NUll;
 if (isset($registros) && !empty($registros)) {
     if (isset($opcion) && !empty($opcion)) {
         if ($opcion == 'editServicio') {
@@ -17,6 +17,7 @@ if (isset($registros) && !empty($registros)) {
         $selValSer = $dtsRegistros->servicio_valor;
         $selValCer = $dtsRegistros->servicio_valor_certificado;
         $selNomSer = $dtsRegistros->servicio_nombre;
+        $seltip = $dtsRegistros->servicio_tipo;
     }
     if (isset($regSubexamen) && !empty($regSubexamen)) {
         foreach ($regSubexamen as $dtsregSubexamen) {
@@ -37,6 +38,20 @@ if (isset($registros) && !empty($registros)) {
     <div class="degradeContent">
         <div class="row">
             <div class="col-sm-3">
+                <div class="form-group" >
+                    <label class="control-label" for="classtipo">Tipo</label>
+                    <div>
+                        <?php
+                        $opciones = array('' => 'Seleccione..');  
+                        foreach ($tipo as $dtsTip) {
+                            $opciones[$dtsTip->tipo_id] = $dtsTip->tipo_nombre;
+                        }
+                        $js = 'class="chzn-select" id="tipo" style="width: 90%" parsley-required="tipo" parsley-error-container="div#errortipo"';
+                        echo form_dropdown('tipo', $opciones, $seltip, $js);
+                        ?>
+                    </div>                    
+                    <div id="errortipo"></div>
+                </div>
                 <div class="form-group" >
                     <label class="control-label" for="classtipo">Tipo Servicio</label>
                     <div>
@@ -67,7 +82,7 @@ if (isset($registros) && !empty($registros)) {
                         ?>
                     </div>                    
                     <div id="errorSede"></div>
-                </div>                
+                </div>                  
             </div>  
             <div class="col-sm-3">
                 <div class="form-group" >

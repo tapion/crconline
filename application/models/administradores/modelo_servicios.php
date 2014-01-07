@@ -47,6 +47,13 @@ class Modelo_Servicios extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    
+    function allTipos() {
+        $this->db->select('tipos.*');
+        $this->db->from('tipos');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     function filterSedeEmpresa($idSede, $idEmpresa) {
         $this->db->select('*');
@@ -81,7 +88,8 @@ class Modelo_Servicios extends CI_Model {
                 'servicio_estado' => isset($parametros['estado']) ? $parametros['estado'] : NULL,
                 'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
                 'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
-                'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL
+                'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL,
+                'servicio_tipo' => isset($parametros['tipo']) ? $parametros['tipo'] : NULL
             );
 
             if (!$this->db->insert('servicios', $data))
@@ -102,7 +110,7 @@ class Modelo_Servicios extends CI_Model {
                     $dts = array('servicio_subexamen_servicio_id' => $idserv,
                         'servicio_subexamen_subexamen_id' => $i
                     );
-                    if (!$this->db->insert('servicios_subexamenes1', $dts))
+                    if (!$this->db->insert('servicios_subexamenes', $dts))
                         throw new Exception();
                 }
             }
@@ -127,6 +135,7 @@ class Modelo_Servicios extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
     function allServicios2($sede = "", $empresa = "", $idServi = "", $idTipServ = "") {
         $this->multi = $this->load->database('multi', TRUE);
         $sql = 'select mpais_id as sede_nombre 
@@ -137,8 +146,8 @@ class Modelo_Servicios extends CI_Model {
                 ,mpais_area as tipo_servicio_nombre
                 ,mpais_poblacion as estado
                 from tbmpais';
-        
-        
+
+
 //        $comSql = !empty($sede) ? "AND sedes.sede_id = $sede" : '';
 //        $comSqltipSer = !empty($idTipServ) ? "AND tipos_servicios.tipo_servicio_id = $idTipServ" : '';
 //        $this->db->select("servicios.*, tipos_servicios.tipo_servicio_nombre, sedes.sede_nombre, CASE servicios.servicio_estado WHEN TRUE THEN 'Activo' ELSE 'Inactivo' END as estado", FALSE);
@@ -177,7 +186,8 @@ class Modelo_Servicios extends CI_Model {
                 'servicio_estado' => isset($parametros['estado']) ? $parametros['estado'] : NULL,
                 'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
                 'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
-                'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL
+                'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL,
+                'servicio_tipo' => isset($parametros['tipo']) ? $parametros['tipo'] : NULL
             );
 
             $this->db->where('servicio_id', $parametros['idServicio']);
@@ -189,4 +199,5 @@ class Modelo_Servicios extends CI_Model {
             return FALSE;
         }
     }
+
 }

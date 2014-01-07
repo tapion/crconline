@@ -33,6 +33,8 @@ class AdminServicio extends CI_Controller {
             $data['registros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario, $id);
             $data['regSubexamen'] = $this->Model_Admin->allSubExamenServicio($id);
         }
+        # Tipos
+        $data['tipo'] = $this->Model_Admin->allTipos();
         # Tipos De servicio
         $data['tipoServicios'] = $this->Model_Admin->allTipoServicios($this->empresaUsuario);
         # Consulta sedes por empresa

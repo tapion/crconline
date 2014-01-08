@@ -1,9 +1,7 @@
 <link href="<?php echo base_url('js/datepickerbootstrap/css/datepicker.css'); ?>" rel="stylesheet" media="screen">       
-<?php $urlAjax = base_url('application/controllers/operativo/eventosAjax.php'); ?>
 <?= form_open('', array('class' => 'form-search', 'id' => 'formSolicitud')); ?>
 <input type="hidden" name="numeroDocumento" id="numeroDocumento" value="<?= $numeroDocumento; ?>" />
 <input type="hidden" name="tipoDocumento" id="tipoDocumento" value="<?= $tipoDocumento; ?>" />
-<input type="hidden" name="rutAjax" id="tipoDocumento" value="<?= $urlAjax; ?>" />
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="text-muted bootstrap-admin-box-title">                
@@ -21,7 +19,7 @@
                         foreach ($tipo as $dtsTip) {
                             $opciones[$dtsTip->tipo_id] = $dtsTip->tipo_nombre;
                         }
-                        $js = 'class="chzn-select" onChange="enviarAjax(\'' . $urlAjax . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');" id="tipo" style="width: 90%" parsley-required="tipo" parsley-error-container="div#errortipo"';
+                        $js = 'class="chzn-select" onChange="enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');" id="tipo" style="width: 90%" parsley-required="tipo" parsley-error-container="div#errortipo"';
                         echo form_dropdown('tipo', $opciones, NULL, $js);
                         ?>                
                         <div id="errortipo"></div>
@@ -38,8 +36,8 @@
                             $opciones[$dtsServi->servicio_id] = strtoupper($dtsServi->servicio_nombre);
                         }
 
-                        $js = 'class="chzn-select" id="tipServicio" onChange="enviarAjax(\'' . $urlAjax . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');
-                                enviarAjax(\'' . $urlAjax . '\',\'formSolicitud\',\'dtsServicio\',\'cargarDtsAdicionales\');" style="width: 90%" parsley-required="tipo servicio" parsley-error-container="div#errorServicio"';
+                        $js = 'class="chzn-select" id="tipServicio" onChange="enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');
+                                enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'dtsAdiServicio\',\'cargarDtsAdicionales\');" style="width: 90%" parsley-required="tipo servicio" parsley-error-container="div#errorServicio"';
                         echo form_dropdown('servicio', $opciones, NULL, $js);
                         ?>   
                         <div id="errorServicio"></div>   
@@ -50,7 +48,7 @@
             </div>                                   
         </div>
         <div class="row">
-            <div id="dtsServicio" class="col-lg-12">
+            <div id="dtsAdiServicio" class="col-lg-12">
                 jerson
             </div>
         </div>

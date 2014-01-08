@@ -15,6 +15,8 @@ class PrestarServicio extends CI_Controller {
         parent::__construct();
         $this->load->model('operativos/modelo_prestar_servicios', 'Model_PresServi');
         $this->load->model('modelo_personas', 'Model_Persona');
+        $this->load->model('administradores/modelo_servicios', 'Model_Servicios');
+        $this->load->library('prestarserviciolib');
         $this->dtssession = $this->session->userdata('logged_user');
         foreach ($this->dtssession as $dtsSession) {
             $this->sedeUsuario = $dtsSession->usuario_sede_id;
@@ -31,8 +33,7 @@ class PrestarServicio extends CI_Controller {
     public function indexServicio() {
 //        echo '<pre>';
 //        print_r($_POST);
-//        echo '</pre>';
-        $this->load->model('administradores/modelo_servicios', 'Model_Servicios');
+//        echo '</pre>';        
         # Tipos De servicio
         $_POST['tipoServicios'] = $this->Model_Servicios->allTipoServicios($this->empresaUsuario);
         $_POST['tipo'] = $this->Model_Servicios->allTipos();
@@ -58,17 +59,30 @@ class PrestarServicio extends CI_Controller {
     }
 
     function newEditPersona($opcion = "") {
-        $this->load->model('administradores/modelo_servicios', 'Model_Admin');
         try {
-            $this->Model_Admin->startTrans();
+            $this->Model_Servicios->startTrans();
             $data['registros'] = $this->input->post();
             if (!$this->Model_Persona->insertEditPersona($data['registros'], $opcion))
                 throw new Exception("Error ingresando o modificando cliente!");
-            $this->Model_Admin->completeTrans();
+            $this->Model_Servicios->completeTrans();
         } catch (Exception $exc) {
             $respuesta = array();
             $respuesta['ok'] = $exc->getMessage();
             echo json_encode($respuesta);
+        }
+    }
+
+    function eventosAjax() {
+        $accion = $this->input->post('accion');
+        if (isset($accion) && !empty($accion)) {
+            switch ($this->input->post('accion')) {
+                case 'cargarDuplicado' : $this->prestarserviciolib->duplicados($this->input->post());
+                    break;
+                case 'abrirModal' : $this->prestarserviciolib->abrirVentanaModal($this->input->post());
+                    break;
+                case 'cargarDtsAdicionales' : $this->prestarserviciolib->dtsAdicionalesServicio($this->input->post());
+                    break;
+            }
         }
     }
 

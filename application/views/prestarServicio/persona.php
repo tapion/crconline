@@ -32,7 +32,7 @@ if (isset($dtsPersonales) && !empty($dtsPersonales)) {
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
-                    <label>Nombre(s)</label>
+                    <label>Nombre(s)</label>                    
                     <div class="form-group">
                         <input class="form-control input-group mayusPrimeras" type="text" id="txtnombre" name="txtnombre" placeholder="Nombre" parsley-required="nombre(s)" value="<?php
                         echo $nombreP;
@@ -146,21 +146,25 @@ if (isset($dtsPersonales) && !empty($dtsPersonales)) {
                 </div>
             </div>
         </div>
-        <div id="buttonsAction" class="form-actions" style="padding-top: 20px">   
-            <?php
-            if (isset($opcion) && !empty($opcion)) {
-                if ($opcion == 'editPersona') {
-                    ?>
-                    <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjaxJSON('<?= $urlBase . '/operativo/prestarServicio/newEditPersona/' . $opcion ?>', 'divTabs', 'formPersonas', new Array('<?= $urlBase . '/operativo/prestarServicio/indexServicio' ?>', 'dtsServicio', 'formPersonas'));"><strong>Editar</strong></button>
+        <div class="row">
+            <div class="col-lg-3">
+                <div id="buttonsAction" class="form-actions">   
                     <?php
-                }
-            } else {
-                ?>
-                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjaxJSON('<?= $urlBase . '/operativo/prestarServicio/newEditPersona' ?>', 'divTabs', 'formPersonas');"><strong>Ingresar</strong></button>
-                <?php
-            }
-            ?>
-        </div>
+                    if (isset($opcion) && !empty($opcion)) {
+                        if ($opcion == 'editPersona') {
+                            ?>
+                            <button class="btn btn-sm btn-primary" type="button" onclick="enviarPeticionAjaxJSON('<?= $urlBase . '/operativo/prestarServicio/newEditPersona/' . $opcion ?>', 'divTabs', 'formPersonas', new Array('<?= $urlBase . '/operativo/prestarServicio/indexServicio' ?>', 'dtsServicio', 'formPersonas'));"><strong>Editar</strong></button>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjaxJSON('<?= $urlBase . '/operativo/prestarServicio/newEditPersona' ?>', 'divTabs', 'formPersonas');"><strong>Ingresar</strong></button>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>        
     </div>
 </div>
 <script src="<?php echo base_url('js/datepickerbootstrap/js/bootstrap-datepicker.js') . '?' . C_VERSION; ?>"></script>        

@@ -48,25 +48,28 @@
             </div>                                   
         </div>
         <div class="row">
-            <div id="dtsAdiServicio" class="col-lg-12">
-                jerson
+            <div id="dtsAdiServicio">
             </div>
         </div>
-        <div class="form-actions" style="padding-top: 20px">   
-            <?php
-            if (isset($opcion) && !empty($opcion)) {
-                if ($opcion == 'editPersona') {
-                    ?>
-                    <button id="pruebass" class="btn btn-sm btn-primary" type="button" onclick="enviarDts();"><strong>Editar</strong></button>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-actions" >   
                     <?php
-                }
-            } else {
-                ?>
-                <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= site_url('/operativo/prestarServicio/newEditPersona'); ?>', 'divTabs', 'formSolicitud');"><strong>Ingresar</strong></button>
-                <?php
-            }
-            ?>
-        </div>
+                    if (isset($opcion) && !empty($opcion)) {
+                        if ($opcion == 'editPersona') {
+                            ?>
+                            <button id="pruebass" class="btn btn-sm btn-primary" type="button" onclick="enviarDts();"><strong>Editar</strong></button>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <button class="btn btn-sm btn-success" type="button" onclick="enviarPeticionAjax('<?= site_url('/operativo/prestarServicio/newEditPersona'); ?>', 'divTabs', 'formSolicitud');"><strong>Ingresar</strong></button>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>            
+        </div>        
     </div>
 </div>
 <?= form_close(); ?>

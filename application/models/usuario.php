@@ -18,14 +18,15 @@ class Usuario extends CI_Model {
         /*
          * Consulta si existe un usuario
          * @param string $login Login del usuario
-         * @param string $password Contraseña
+         * @param string $password ContraseÃ±a
          */
 	public function autenticar( $login='', $password='' ) {
+            
             if(!empty($login) && !empty($password)){
                 
                 $this->db->select('*');
                 $this->db->from('usuarios');
-                $this->db->join('personas', 'usuarios.usuario_persona_tipo_doc_id = personas.persona_tipo_doc_id AND usuarios.usuario_persona_numero_id = personas.persona_numero_id');
+                $this->db->join('personas', 'usuarios.usuario_persona_id = personas.persona_id');
                 $this->db->where('usuario_login', $login);
                 $this->db->where('usuario_password', md5($password) );
                 $this->db->where('usuario_estado', 'TRUE');

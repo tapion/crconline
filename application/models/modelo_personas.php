@@ -48,6 +48,8 @@ class Modelo_Personas extends CI_Model {
             );
 
             if (isset($opcion) && !empty($opcion)) {
+                $data['persona_usuario_id_edito'] = isset($parametros['idUsuario']) ? ucwords(strtolower($parametros['idUsuario'])) : NULL;
+                $data['persona_fecha_edito'] = 'now()' ;
                 $this->db->where('persona_tipo_doc_id', $parametros['tipoDocumento']);
                 $this->db->where('persona_numero_id', $parametros['numeroDocumento']);
                 if(!$this->db->update('personas', $data))

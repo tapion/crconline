@@ -47,7 +47,7 @@ class Modelo_Servicios extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
-    
+
     function allTipos() {
         $this->db->select('tipos.*');
         $this->db->from('tipos');
@@ -177,6 +177,16 @@ class Modelo_Servicios extends CI_Model {
         return $query->result();
     }
 
+    function allCategorias() {
+        $query = $this->db->get("categorias");
+        return $query->result();
+    }
+    
+    function allTramites() {
+        $query = $this->db->get("tramites");
+        return $query->result();
+    }
+
     function editServicio($parametros) {
         try {
             $data = array('servicio_nombre' => isset($parametros['txtServicio']) ? $parametros['txtServicio'] : NULL,
@@ -187,7 +197,9 @@ class Modelo_Servicios extends CI_Model {
                 'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
                 'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
                 'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL,
-                'servicio_tipo' => isset($parametros['tipo']) ? $parametros['tipo'] : NULL
+                'servicio_tipo' => isset($parametros['tipo']) ? $parametros['tipo'] : NULL,
+                'servicio_usuario_id_edito' => isset($parametros['idUsuario']) ? $parametros['idUsuario'] : NULL,
+                'servicio_fecha_edito' => 'now()',
             );
 
             $this->db->where('servicio_id', $parametros['idServicio']);

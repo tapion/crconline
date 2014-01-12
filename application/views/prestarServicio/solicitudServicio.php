@@ -36,7 +36,7 @@
                             $opciones[$dtsServi->servicio_id] = strtoupper($dtsServi->servicio_nombre);
                         }
 
-                        $js = 'class="chzn-select" id="tipServicio" onChange="enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');
+                        $js = 'class="chzn-select" id="servicio" onChange="enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');
                                 enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'dtsAdiServicio\',\'cargarDtsAdicionales\');" style="width: 90%" parsley-required="tipo servicio" parsley-error-container="div#errorServicio"';
                         echo form_dropdown('servicio', $opciones, NULL, $js);
                         ?>   

@@ -16,6 +16,7 @@ class AdminServicio extends CI_Controller {
         $this->load->model('administradores/modelo_servicios', 'Model_Admin');
         $this->dtssession = $this->session->userdata('logged_user');
         foreach ($this->dtssession as $dtsSession) {
+            $this->idUsuario = $dtsSession->usuario_id;
             $this->sedeUsuario = $dtsSession->usuario_sede_id;
             $this->empresaUsuario = $dtsSession->usuario_empresa_id;
         }
@@ -83,6 +84,7 @@ class AdminServicio extends CI_Controller {
         try {
             $this->Model_Admin->startTrans();
             $registro = $this->input->post();
+            $registro['idUsuario'] = $this->idUsuario;
             $datos['exito'] = $this->Model_Admin->deleteSubExamenServicio($registro['idServicio']);
             if ($datos['exito']) {
                 $maxSubExa = $this->Model_Admin->maxSubExamen();

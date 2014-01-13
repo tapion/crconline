@@ -29,7 +29,8 @@
                                 foreach( $grupos as $grupo ){
                                     ?>
                                     <td style="text-align: center">
-                                        <input type="checkbox" name="<?php echo $grupo->grupo_id;?>">
+                                        <input type="hidden" name="funcionalidad_<?php echo $funcionalidad->funcionalidad_id;?>" value="<?php echo $funcionalidad->funcionalidad_id;?>">
+                                        <input type="checkbox" name="grupo_<?php echo $grupo->grupo_id;?>">
                                     </td>
                                     <?php
                                 }
@@ -41,7 +42,7 @@
                     </tbody>
                 </table>
                 <div>
-                    <button class="btn btn-sm btn-danger" type="submit"><strong>Ordenar</strong></button>
+                    <button class="btn btn-sm btn-danger" type="button" onclick="enviarPeticionAjaxJSON('<?= $urlBase . '/funcionalidad/classify' ?>', 'divTabs', 'formOrdenarFuncionalidades');"><strong>Ordenar</strong></button>
                 </div>
             <?= form_close(); ?>
         </div>

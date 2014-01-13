@@ -63,5 +63,16 @@ class Model_Funcionalidad extends CI_Model {
         $this->db->update('funcionalidades', $data);
         return $parametros['funcionalidad_id'];
     }
+    
+    public function classifyFunctionalities($parametros){
+        $data = array(
+            'grupo_id' => $parametros['grupo'],
+            'funcionalidad_id' => $parametros['funcionalidad'],
+            'usuario_creacion' => $this->user
+        );
+        $this->db->insert('grupos_funcionalidades', $data);                 
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
 ?>

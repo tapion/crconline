@@ -19,6 +19,13 @@ if (isset($dtsPersonales) && !empty($dtsPersonales)) {
         $emailP = $dtsPer->persona_email;
     }
 }
+
+$lugNacimiento = array('' => 'Seleccione');
+if (isset($dtsCiudades) && !empty($dtsCiudades)) {
+    foreach ($dtsCiudades as $dtsCiu) {
+        $lugNacimiento[$dtsCiu->ciudad_id] = $dtsCiu->ciudad_nombre;
+    }
+}
 ?>   
 <input type="hidden" name="numeroDocumento" id="numeroDocumento" value="<?= $registros['numeroDocumento']; ?>" />
 <input type="hidden" name="tipoDocumento" id="tipoDocumento" value="<?= $registros['tipoDocumento']; ?>" />
@@ -73,8 +80,7 @@ if (isset($dtsPersonales) && !empty($dtsPersonales)) {
                 <div class="form-group">
                     <label>Lugar Nacimiento</label>
                     <div class="form-group">
-                        <?php
-                        $lugNacimiento = array('' => 'Seleccione', '1' => 'bogota', '2' => 'funza');
+                        <?php                        
                         $js = 'class="chzn-select" id="lugarnacimiento" style="width: 80%" parsley-required="lugar nacimiento" parsley-error-container="div#errorLugNac"';
                         echo form_dropdown('lugarnacimiento', $lugNacimiento, $lugarNaci, $js);
                         ?>     

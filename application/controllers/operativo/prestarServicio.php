@@ -50,8 +50,10 @@ class PrestarServicio extends CI_Controller {
     }
 
     function consultPersona() {
+        $this->load->model('modelo_ciudades', 'Model_Ciudad');
         $data['registros'] = $this->input->post();
         $data['dtsPersonales'] = $this->Model_Persona->datPersonalesPersona($data['registros']);
+        $data['dtsCiudades'] = $this->Model_Ciudad->allCiudades($data['registros']);
         if (!empty($data['dtsPersonales'])) {
             $data['opcion'] = 'editPersona';
         }

@@ -22,7 +22,7 @@ class Welcome extends Private_Controller {
 
         $data = array();
 
-        // A�adimos las reglas necesarias.
+        // Añadimos las reglas necesarias.
         $this->form_validation->set_rules('txtUsuario', 'Usuario', 'required');
         $this->form_validation->set_rules('txtPassword', 'Password', 'required');
 

@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
 class Prestarserviciolib {
 
     function __construct() {
-        $this->CI = & get_instance(); // Esto para acceder a la instancia que carga la librer�a
+        $this->CI = & get_instance(); // Esto para acceder a la instancia que carga la librer�a
         $this->CI->load->model('administradores/modelo_servicios', 'Model_Servicios');
         $this->dtssession = $this->CI->session->userdata('logged_user');
         foreach ($this->dtssession as $dtsSession) {
@@ -42,16 +42,33 @@ class Prestarserviciolib {
             if (!empty($servi)) {
                 foreach ($servi as $dtsServi) {
                     if ($dtsServi->servicio_tipo_servicio_id == 1) { # Para valoracion conduccion
+                        # Consulta categorias
+                        $categorias = $this->CI->Model_Servicios->allCategorias();
+                        $opciones = array('' => 'Seleccione..');
+                        foreach ($categorias as $dtsCategorias) {
+                            $opciones[$dtsCategorias->categoria_id] = strtoupper($dtsCategorias->categoria_nombre);
+                        }
+                        $js = 'class="chzn-select" id="categoria" onChange="enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');
+                                enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'dtsAdiServicio\',\'cargarDtsAdicionales\');" style="width: 90%" parsley-required="tipo servicio" parsley-error-container="div#errorServicio"';
+                        # Consulta tramites
+                        $tramites = $this->CI->Model_Servicios->allTramites();
+                        $opcionesTramites = array('' => 'Seleccione..');
+                        foreach ($tramites as $dtsTramites) {
+                            $opcionesTramites[$dtsTramites->tramite_id] = strtr(strtoupper($dtsTramites->tramite_nombre),"àèìòùáéíóúçñäëïöü","ÀÈÌÒÙÁÉÍÓÚÇÑÄËÏÖÜ");
+                        }
+                        $jsTramites = 'class="chzn-select" id="tramite" onChange="enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'masDtsDuplicados\',\'cargarDuplicado\');
+                                enviarAjax(\'' . site_url('/operativo/prestarServicio/eventosAjax') . '\',\'formSolicitud\',\'dtsAdiServicio\',\'cargarDtsAdicionales\');" style="width: 90%" parsley-required="tipo servicio" parsley-error-container="div#errorServicio"';
+                        
                         $resultado = '<div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Categoria</label>
                                             <div class="form-group">  
-                                                <input class="form-control input-group mayusPrimeras" type="text" id="txtnombre" name="txtnombre" placeholder="Nombre" parsley-required="nombre(s)" value="">
+                                                '.form_dropdown('categoria', $opciones, NULL, $js).'
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Descripci�n Categor�a</label>      
-                                            <div class="form-group">  
+                                            <label>Descripci&oacute;n Categor&iacute;a</label>      
+                                            <div id="descripCategoria" class="form-group">  
                                                 descr categoria       
                                             </div>
                                         </div>
@@ -64,12 +81,12 @@ class Prestarserviciolib {
                                         <div class="form-group">
                                             <label>Tramite</label>
                                             <div class="form-group">  
-                                                <input class="form-control input-group mayusPrimeras" type="text" id="txtnombre" name="txtnombre" placeholder="Nombre" parsley-required="nombre(s)" value="">
+                                                '.form_dropdown('tramite', $opcionesTramites, NULL, $jsTramites).'
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Servicio</label>      
-                                            <div class="form-group">  
+                                            <div id="descripTramite" class="form-group">  
                                                 descr Tramite             
                                             </div>
                                         </div>
@@ -112,7 +129,7 @@ class Prestarserviciolib {
             }
         }
 
-        echo $resultado;
+        echo $resultado.'<script>$(".chzn-select").chosen();</script>';
     }
 
 }

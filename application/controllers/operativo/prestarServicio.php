@@ -19,6 +19,7 @@ class PrestarServicio extends CI_Controller {
         $this->load->library('prestarserviciolib');
         $this->dtssession = $this->session->userdata('logged_user');
         foreach ($this->dtssession as $dtsSession) {
+            $this->idUsuario = $dtsSession->usuario_id;
             $this->sedeUsuario = $dtsSession->usuario_sede_id;
             $this->empresaUsuario = $dtsSession->usuario_empresa_id;
         }
@@ -62,6 +63,7 @@ class PrestarServicio extends CI_Controller {
         try {
             $this->Model_Servicios->startTrans();
             $data['registros'] = $this->input->post();
+            $data['registros']['idUsuario'] = $this->idUsuario;
             if (!$this->Model_Persona->insertEditPersona($data['registros'], $opcion))
                 throw new Exception("Error ingresando o modificando cliente!");
             $this->Model_Servicios->completeTrans();

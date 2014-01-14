@@ -58,25 +58,38 @@ class Funcionalidad extends CI_Controller {
     }
     
     public function classifyFunctionalities(){
-        $this->load->model('Model_Grupo');
+        $this->load->model('Model_Grupo');        
+        $this->load->model('Model_Grupo_Funcionalidad');
+        
         $data['funcionalidades'] = $this->Model_Funcionalidad->listAll();
-        $data['grupos'] = $this->Model_Grupo->listAll();        
-        $this->load->view('funcionalidad/classifyFunctionalities.php',$data);       
+        $data['grupos'] = $this->Model_Grupo->listAll();  
+        $data['grupo_funcionalidad'] = $this->Model_Grupo_Funcionalidad->listAll();
+        
+        $this->load->view('funcionalidad/classifyFunctionalities.php',$data); 
     }
     
     public function classify(){
         $funcionalidad = $this->input->post();        
-        echo "<pre>";
-            print_r ($funcionalidad);
-        echo "</pre>";
-        log_message("error", var_export($funcionalidad,true));
-        log_message("debug", var_export($funcionalidad,true));
-        log_message("info", var_export($funcionalidad,true));
-        //$funciona_id = $this->Model_Funcionalidad->classifyFunctionalities($funcionalidad);
         
-        $this->load->model('Model_Grupo');
+        $grupoFun = array();
+        foreach($funcionalidad as $fun) {
+            if ( strpos($fun, "_") > 0 ){
+                $temp = explode("_", $fun);
+                $grupoFun['grupo'] = $temp[1];
+                $grupoFun['funcionalidad'] = $temp[0];
+            }
+        }
+        
+        $this->Model_Funcionalidad->classifyFunctionalities($grupoFun);
+        
+        $this->load->model('Model_Grupo');        
+        $this->load->model('Model_Grupo_Funcionalidad');
+        
         $data['funcionalidades'] = $this->Model_Funcionalidad->listAll();
-        $data['grupos'] = $this->Model_Grupo->listAll();        
+        $data['grupos'] = $this->Model_Grupo->listAll();  
+        $data['grupo_funcionalidad'] = $this->Model_Grupo_Funcionalidad->listAll();
+        
+        
         $this->load->view('funcionalidad/classifyFunctionalities.php',$data); 
     }
     

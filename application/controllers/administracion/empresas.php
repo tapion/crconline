@@ -42,10 +42,10 @@ class Empresas extends CI_Controller {
 
     public function filtros() {
         $params['table'] = 'empresas emp
-                inner join usuarios usr on usr.usuario_id = emp.usuario_id
-                left join usuarios usr2 on usr2.usuario_id = emp.usuario_id_edito
-                inner join ciudades ciu on ciu.ciudad_id = emp.ciudad_id
-                inner join paises pai on pai.pais_id = ciu.pais_id ';
+                inner join usuarios usr on usr.usuario_id = emp.empresa_usuario_id
+                left join usuarios usr2 on usr2.usuario_id = emp.empresa_usuario_id_edito
+                inner join ciudades ciu on ciu.ciudad_id = emp.empresa_ciudad_id
+                inner join paises pai on pai.pais_id = ciu.ciudad_pais_id';
         $params['fields'] = array('emp.empresa_nombre'
                     ,'emp.empresa_nit'
                     ,'emp.empresa_direccion'

@@ -77,10 +77,9 @@ class Funcionalidad extends CI_Controller {
                 $temp = explode("_", $fun);
                 $grupoFun['grupo'] = $temp[1];
                 $grupoFun['funcionalidad'] = $temp[0];
+                $this->Model_Funcionalidad->classifyFunctionalities($grupoFun);
             }
         }
-        
-        $this->Model_Funcionalidad->classifyFunctionalities($grupoFun);
         
         $this->load->model('Model_Grupo');        
         $this->load->model('Model_Grupo_Funcionalidad');

@@ -21,16 +21,25 @@
                     </thead>
                     <tbody>
                         <?php
+                        
+                        $seleccionados = array();
+                        foreach($grupo_funcionalidad as $temp){
+                            array_push($seleccionados, $temp->funcionalidad_id."_".$temp->grupo_id);
+                        }
                         foreach ($funcionalidades as $funcionalidad) {
                             ?>
                             <tr class="odd gradeX">
                                 <td><?php echo $funcionalidad->funcionalidad_nombre; ?></td>
                                 <?php
                                 foreach( $grupos as $grupo ){
+                                    $checked = "";
+                                    //$funcionalidad->funcionalidad_id."_".$grupo->grupo_id
+                                    if (in_array($funcionalidad->funcionalidad_id."_".$grupo->grupo_id, $seleccionados) ){
+                                        $checked = "checked='checked'";
+                                    }
                                     ?>
-                                    <td style="text-align: center">
-                                        <input type="hidden" name="funcionalidad_<?php echo $funcionalidad->funcionalidad_id;?>" value="<?php echo $funcionalidad->funcionalidad_id;?>">
-                                        <input type="checkbox" name="grupo_<?php echo $grupo->grupo_id;?>">
+                                    <td style="text-align: center">                                        
+                                        <input type="checkbox" name="grupo_funcionalidad-<?php echo $funcionalidad->funcionalidad_id."_".$grupo->grupo_id;?>" value="<?php echo $funcionalidad->funcionalidad_id."_".$grupo->grupo_id;?>" <?php echo $checked;?>>
                                     </td>
                                     <?php
                                 }

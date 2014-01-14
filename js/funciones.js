@@ -23,7 +23,7 @@ function enviarPeticionAjax(urlAction) {
         dtsFormulario = "";
     }
 
-    divProcesando(true);
+    //divProcesando(true);
 
     $.ajax({
         url: urlAction,

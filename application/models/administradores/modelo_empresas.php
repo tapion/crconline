@@ -85,6 +85,18 @@ class Modelo_empresas extends CI_Model {
         return true;
     }
     
+    function allEmpresas($codEmpresa=null){
+        
+        $this->db->select('*');
+        $this->db->from('empresas');
+        if( !is_null($codEmpresa) ){
+            $this->db->where('empresa_id', $codEmpresa);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
 //    public function getCompany(){
 //        return $this->db->query("select emp.empresa_id
 //                    ,emp.empresa_nombre

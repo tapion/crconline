@@ -39,7 +39,7 @@
                                     }
                                     ?>
                                     <td style="text-align: center">                                        
-                                        <input type="checkbox" name="grupo_funcionalidad-<?php echo $funcionalidad->funcionalidad_id."_".$grupo->grupo_id;?>" value="<?php echo $funcionalidad->funcionalidad_id."_".$grupo->grupo_id;?>" <?php echo $checked;?>>
+                                        <input type="radio" name="grupo_funcionalidad-<?php echo $funcionalidad->funcionalidad_id;?>" value="<?php echo $funcionalidad->funcionalidad_id."_".$grupo->grupo_id;?>" <?php echo $checked;?>>
                                     </td>
                                     <?php
                                 }

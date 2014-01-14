@@ -65,14 +65,23 @@ class Model_Funcionalidad extends CI_Model {
     }
     
     public function classifyFunctionalities($parametros){
-        $data = array(
-            'grupo_id' => $parametros['grupo'],
-            'funcionalidad_id' => $parametros['funcionalidad'],
-            'usuario_creacion' => $this->user
-        );
-        $this->db->insert('grupos_funcionalidades', $data);                 
-        $query = $this->db->get();
-        return $query->result();
+        try {
+            $infoUsuario = $this->session->userdata('logged_user');
+            $data = array(
+                'grupo_id' => isset($parametros['grupo']) ? $parametros['grupo']: NULL,
+                'funcionalidad_id' => isset($parametros['funcionalidad']) ? $parametros['funcionalidad']: NULL,
+                'fecha_creacion' => date("Y-m-d H:i:s"),
+                'fecha_modificacion' => date("Y-m-d H:i:s"),
+                'usuario_creacion' => $infoUsuario[0]->usuario_id
+
+            );
+            if (!$this->db->insert('grupos_funcionalidades', $data));
+                    throw new Exception('Error agregando nuevo cliente!');
+            return TRUE;      
+        } catch (Exception $exc) {            
+            return FALSE;            
+        }
+
     }
 }
 ?>

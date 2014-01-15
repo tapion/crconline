@@ -55,7 +55,7 @@ class AdminServicio extends CI_Controller {
             $registro = $this->input->post();
             $idServicio = $this->Model_Admin->insertServicio($registro);
             if (!$idServicio)
-                throw new Exception("Error al guardar servicio");
+                throw new Exception("Error al guardar servicio (".$this->Model_Admin->mensajeError.')');
 
             $maxSubExa = $this->Model_Admin->maxSubExamen();
             foreach ($idServicio as $dtsServicio) {

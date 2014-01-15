@@ -17,7 +17,7 @@ if (isset($registros) && !empty($registros)) {
         $selValSer = $dtsRegistros->servicio_valor;
         $selValCer = $dtsRegistros->servicio_valor_certificado;
         $selNomSer = $dtsRegistros->servicio_nombre;
-        $seltip = $dtsRegistros->servicio_tipo;
+        $seltip = $dtsRegistros->servicio_tipo_id;
     }
     if (isset($regSubexamen) && !empty($regSubexamen)) {
         foreach ($regSubexamen as $dtsregSubexamen) {
@@ -77,7 +77,7 @@ if (isset($registros) && !empty($registros)) {
                             $opcSedes[$dtsSedes->sede_id] = $dtsSedes->sede_nombre;
                         }
 
-                        $js = 'class="chzn-select" id="sede" parsley-required="sede" parsley-error-container="div#errorSede"';
+                        $js = 'class="chzn-select" style="width: 90%" id="sede" parsley-required="sede" parsley-error-container="div#errorSede"';
                         echo form_dropdown('sede', $opcSedes, $selSede, $js);
                         ?>
                     </div>                    

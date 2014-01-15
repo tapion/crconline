@@ -10,6 +10,8 @@ if (!defined('BASEPATH'))
 
 class Modelo_Servicios extends CI_Model {
 
+    public $mensajeError = "";
+
     function __construct() {
         parent::__construct();
     }
@@ -89,11 +91,13 @@ class Modelo_Servicios extends CI_Model {
                 'servicio_valor_certificado' => isset($parametros['txtVlrCerti']) ? $parametros['txtVlrCerti'] : NULL,
                 'servicio_sede_id' => isset($parametros['sede']) ? $parametros['sede'] : NULL,
                 'servicio_tipo_servicio_id' => isset($parametros['tipoServicio']) ? $parametros['tipoServicio'] : NULL,
-                'servicio_tipo' => isset($parametros['tipo']) ? $parametros['tipo'] : NULL
+                'servicio_tipo_id' => isset($parametros['tipo']) ? $parametros['tipo'] : NULL
             );
 
-            if (!$this->db->insert('servicios', $data))
+            if (!$this->db->insert('servicios', $data)) {
+                $this->mensajeError = $this->db->_error_message();
                 throw new Exception();
+            }
 
             $this->db->select("currval('servicios_servicio_id_seq') as idservicio");
             $query = $this->db->get();
@@ -110,8 +114,10 @@ class Modelo_Servicios extends CI_Model {
                     $dts = array('servicio_subexamen_servicio_id' => $idserv,
                         'servicio_subexamen_subexamen_id' => $i
                     );
-                    if (!$this->db->insert('servicios_subexamenes', $dts))
+                    if (!$this->db->insert('servicios_subexamenes', $dts)) {
+                        $this->mensajeError = $this->db->_error_message();
                         throw new Exception();
+                    }
                 }
             }
             return TRUE;
@@ -181,7 +187,7 @@ class Modelo_Servicios extends CI_Model {
         $query = $this->db->get("categorias");
         return $query->result();
     }
-    
+
     function allTramites() {
         $query = $this->db->get("tramites");
         return $query->result();
@@ -203,8 +209,10 @@ class Modelo_Servicios extends CI_Model {
             );
 
             $this->db->where('servicio_id', $parametros['idServicio']);
-            if (!$this->db->update('servicios', $data))
+            if (!$this->db->update('servicios', $data)) {
+                $this->mensajeError = $this->db->_error_message();
                 throw new Exception();
+            }
 
             return TRUE;
         } catch (Exception $exc) {

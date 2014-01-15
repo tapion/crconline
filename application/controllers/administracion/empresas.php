@@ -33,7 +33,7 @@ class Empresas extends CI_Controller {
     }
 
     public function getAllCompany() {
-        $this->load->view('adminServicio/consultar');
+        $this->load->view('adminEmpresas/consultar');
     }
 
     public function editar($empresa_id) {

@@ -55,7 +55,7 @@ class AdminServicio extends CI_Controller {
             $registro = $this->input->post();
             $idServicio = $this->Model_Admin->insertServicio($registro);
             if (!$idServicio)
-                throw new Exception("Error al guardar servicio (".$this->Model_Admin->mensajeError.')');
+                throw new Exception("Error al guardar servicio (" . $this->Model_Admin->mensajeError . ')');
 
             $maxSubExa = $this->Model_Admin->maxSubExamen();
             foreach ($idServicio as $dtsServicio) {
@@ -78,6 +78,25 @@ class AdminServicio extends CI_Controller {
         $datas['exito'] = $exito;
         $datas['filtros'] = $this->Model_Admin->allServicios($this->sedeUsuario, $this->empresaUsuario);
         $this->load->view('adminServicio/consultar', $datas);
+    }
+
+    public function filtros() {        
+        $comSqlSede = !empty($this->sedeUsuario) ? "AND sd.sede_id = $this->sedeUsuario" : '';
+        $comSqlEmpresa = !empty($this->empresaUsuario) ? " join empresas em on em.empresa_id = sd.sede_empresa_id " : '';
+        $params['table'] = 'servicios sv
+                            join tipos_servicios tsv on tsv.tipo_servicio_id = sv.servicio_tipo_servicio_id 
+                            join sedes sd on sd.sede_id = sv.servicio_sede_id '.$comSqlSede.$comSqlEmpresa;
+        $params['fields'] = array('sede_nombre',
+                                'servicio_nombre',
+                                'servicio_valor',
+                                'servicio_valor_certificado',
+                                'tipo_servicio_nombre',
+                                'CASE sv.servicio_estado WHEN TRUE THEN \'Activo\' ELSE \'Inactivo\' END as servicio_estado',
+                                'servicio_id'
+            );
+        $params['connection'] = $this->db->conn_id;
+        $this->load->library('dynamicdatatable', $params);
+        return $this->dynamicdatatable->filtro();
     }
 
     public function editServicio() {
@@ -105,4 +124,5 @@ class AdminServicio extends CI_Controller {
             echo json_encode($respuesta);
         }
     }
+
 }

@@ -126,7 +126,11 @@ function formatoTablaResultados2(url) {
         "sAjaxSource": url,
         "sServerMethod": 'POST',
         "aoColumnDefs": [
-            {"bSearchable": false, "aTargets": [4,8,10,11]}
+            {
+                "bSearchable": false
+//                ,"aTargets": [4, 8, 10, 11]
+                ,"aTargets": []
+            }
         ]
     });
     $('.datatable').each(function() {
@@ -194,4 +198,9 @@ function deshabilitarcampos(contenedor, form, array) {
             });
         }
     }
+}
+
+function habilitarDeshabilitarOpc(divpadre, idactivar){
+    $('#'+divpadre + ' li').removeClass('active');
+    $('#'+idactivar).addClass('active');
 }
